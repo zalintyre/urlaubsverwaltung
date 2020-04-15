@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.synyx.urlaubsverwaltung.TestDataCreator;
 import org.synyx.urlaubsverwaltung.absence.Absence;
 import org.synyx.urlaubsverwaltung.absence.AbsenceMapping;
 import org.synyx.urlaubsverwaltung.absence.AbsenceMappingService;
@@ -19,7 +20,6 @@ import org.synyx.urlaubsverwaltung.application.domain.VacationCategory;
 import org.synyx.urlaubsverwaltung.application.service.exception.ImpatientAboutApplicationForLeaveProcessException;
 import org.synyx.urlaubsverwaltung.application.service.exception.RemindAlreadySentException;
 import org.synyx.urlaubsverwaltung.calendarintegration.CalendarSyncService;
-import org.synyx.urlaubsverwaltung.TestDataCreator;
 import org.synyx.urlaubsverwaltung.department.DepartmentService;
 import org.synyx.urlaubsverwaltung.period.DayLength;
 import org.synyx.urlaubsverwaltung.person.Person;
@@ -34,6 +34,7 @@ import java.util.Optional;
 import static java.time.ZoneOffset.UTC;
 import static java.util.Arrays.asList;
 import static java.util.Optional.of;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -45,10 +46,13 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
+import static org.synyx.urlaubsverwaltung.TestDataCreator.createPerson;
+import static org.synyx.urlaubsverwaltung.application.domain.ApplicationAction.CANCELLED;
+import static org.synyx.urlaubsverwaltung.application.domain.ApplicationAction.CANCEL_REQUESTED;
 import static org.synyx.urlaubsverwaltung.application.domain.ApplicationAction.REFERRED;
 import static org.synyx.urlaubsverwaltung.application.domain.ApplicationStatus.WAITING;
-import static org.synyx.urlaubsverwaltung.TestDataCreator.createPerson;
 import static org.synyx.urlaubsverwaltung.person.Role.DEPARTMENT_HEAD;
+import static org.synyx.urlaubsverwaltung.person.Role.OFFICE;
 import static org.synyx.urlaubsverwaltung.person.Role.SECOND_STAGE_AUTHORITY;
 import static org.synyx.urlaubsverwaltung.person.Role.USER;
 
@@ -758,8 +762,8 @@ class ApplicationInteractionServiceImplTest {
     @Test
     void ensureCancellingNotYetAllowedApplicationForLeaveChangesStateAndOtherAttributesButSendsNoEmail() {
 
-        Person person = new Person("muster", "Muster", "Marlene", "muster@example.org");
-        Optional<String> comment = of("Foo");
+        final Person person = new Person("muster", "Muster", "Marlene", "muster@example.org");
+        final Optional<String> comment = of("Foo");
 
         final Application applicationForLeave = getDummyApplication(person);
         applicationForLeave.setStatus(WAITING);
@@ -767,17 +771,14 @@ class ApplicationInteractionServiceImplTest {
 
         sut.cancel(applicationForLeave, person, comment);
 
-        Assert.assertEquals("Wrong state", ApplicationStatus.REVOKED, applicationForLeave.getStatus());
-        Assert.assertEquals("Wrong person", person, applicationForLeave.getPerson());
-        Assert.assertEquals("Wrong canceller", person, applicationForLeave.getCanceller());
-        Assert.assertEquals("Wrong cancelled date", LocalDate.now(UTC), applicationForLeave.getCancelDate());
-        Assert.assertFalse("Must not be formerly allowed", applicationForLeave.isFormerlyAllowed());
+        assertThat(applicationForLeave.getStatus()).isEqualTo(ApplicationStatus.REVOKED);
+        assertThat(applicationForLeave.getPerson()).isEqualTo(person);
+        assertThat(applicationForLeave.getCanceller()).isEqualTo(person);
+        assertThat(applicationForLeave.getCancelDate()).isEqualTo(LocalDate.now(UTC));
+        assertThat(applicationForLeave.isFormerlyAllowed()).isFalse();
 
         verify(applicationService).save(applicationForLeave);
-
-        verify(commentService)
-            .create(eq(applicationForLeave), eq(ApplicationAction.REVOKED), eq(comment), eq(person));
-
+        verify(commentService).create(eq(applicationForLeave), eq(ApplicationAction.REVOKED), eq(comment), eq(person));
         verifyNoInteractions(applicationMailService);
     }
 
@@ -785,15 +786,15 @@ class ApplicationInteractionServiceImplTest {
     @Test
     void ensureCancellingApplicationForLeaveDeletesCalendarEvent() {
 
-        Person person = new Person("muster", "Muster", "Marlene", "muster@example.org");
-        Person canceller = new Person("muster", "Muster", "Marlene", "muster@example.org");
+        final Person person = new Person("muster", "Muster", "Marlene", "muster@example.org");
+        final Person canceller = new Person("muster", "Muster", "Marlene", "muster@example.org");
 
-        Optional<String> comment = of("Foo");
+        final Optional<String> comment = of("Foo");
 
-        Application applicationForLeave = getDummyApplication(person);
+        final Application applicationForLeave = getDummyApplication(person);
         applicationForLeave.setStatus(WAITING);
 
-        AbsenceMapping absenceMapping = TestDataCreator.anyAbsenceMapping();
+        final AbsenceMapping absenceMapping = TestDataCreator.anyAbsenceMapping();
         when(absenceMappingService.getAbsenceByIdAndType(null, AbsenceType.VACATION)).thenReturn(of(absenceMapping));
 
         sut.cancel(applicationForLeave, canceller, comment);
@@ -806,8 +807,8 @@ class ApplicationInteractionServiceImplTest {
     @Test
     void ensureCancellingAllowedApplicationByOwnerCreatesACancellationRequest() {
 
-        Person person = new Person("muster", "Muster", "Marlene", "muster@example.org");
-        Optional<String> comment = of("Foo");
+        final Person person = new Person("muster", "Muster", "Marlene", "muster@example.org");
+        final Optional<String> comment = of("Foo");
 
         final Application applicationForLeave = getDummyApplication(person);
         applicationForLeave.setStatus(ApplicationStatus.ALLOWED);
@@ -819,10 +820,7 @@ class ApplicationInteractionServiceImplTest {
         sut.cancel(applicationForLeave, person, comment);
 
         verify(applicationService).save(applicationForLeave);
-
-        verify(commentService)
-            .create(eq(applicationForLeave), eq(ApplicationAction.CANCEL_REQUESTED), eq(comment), eq(person));
-
+        verify(commentService).create(eq(applicationForLeave), eq(CANCEL_REQUESTED), eq(comment), eq(person));
         verify(applicationMailService).sendCancellationRequest(eq(applicationForLeave), any(ApplicationComment.class));
     }
 
@@ -830,10 +828,10 @@ class ApplicationInteractionServiceImplTest {
     @Test
     void ensureCancellingAllowedApplicationByOwnerThatIsOfficeCancelsTheApplicationForLeaveDirectly() {
 
-        Person person = new Person("muster", "Muster", "Marlene", "muster@example.org");
-        person.setPermissions(asList(USER, Role.OFFICE));
+        final Person person = new Person("muster", "Muster", "Marlene", "muster@example.org");
+        person.setPermissions(asList(USER, OFFICE));
 
-        Optional<String> comment = of("Foo");
+        final Optional<String> comment = of("Foo");
 
         final Application applicationForLeave = getDummyApplication(person);
         applicationForLeave.setStatus(ApplicationStatus.ALLOWED);
@@ -841,17 +839,14 @@ class ApplicationInteractionServiceImplTest {
 
         sut.cancel(applicationForLeave, person, comment);
 
-        Assert.assertEquals("Wrong state", ApplicationStatus.CANCELLED, applicationForLeave.getStatus());
-        Assert.assertEquals("Wrong person", person, applicationForLeave.getPerson());
-        Assert.assertEquals("Wrong canceller", person, applicationForLeave.getCanceller());
-        Assert.assertEquals("Wrong cancelled date", LocalDate.now(UTC), applicationForLeave.getCancelDate());
-        Assert.assertTrue("Must be formerly allowed", applicationForLeave.isFormerlyAllowed());
+        assertThat(applicationForLeave.getStatus()).isEqualTo(ApplicationStatus.CANCELLED);
+        assertThat(applicationForLeave.getPerson()).isEqualTo(person);
+        assertThat(applicationForLeave.getCanceller()).isEqualTo(person);
+        assertThat(applicationForLeave.getCancelDate()).isEqualTo(LocalDate.now(UTC));
+        assertThat(applicationForLeave.isFormerlyAllowed()).isTrue();
 
         verify(applicationService).save(applicationForLeave);
-
-        verify(commentService)
-            .create(eq(applicationForLeave), eq(ApplicationAction.CANCELLED), eq(comment), eq(person));
-
+        verify(commentService).create(eq(applicationForLeave), eq(CANCELLED), eq(comment), eq(person));
         verifyNoInteractions(applicationMailService);
     }
 
@@ -859,13 +854,13 @@ class ApplicationInteractionServiceImplTest {
     @Test
     void ensureCancellingAllowedApplicationForLeaveOnBehalfForSomeOneChangesStateAndOtherAttributesAndSendsAnEmail() {
 
-        Person person = new Person("muster", "Muster", "Marlene", "muster@example.org");
-        Person canceller = new Person("muster", "Muster", "Marlene", "muster@example.org");
-        canceller.setPermissions(asList(USER, Role.OFFICE));
+        final Person person = new Person("muster", "Muster", "Marlene", "muster@example.org");
+        final Person canceller = new Person("muster", "Muster", "Marlene", "muster@example.org");
+        canceller.setPermissions(asList(USER, OFFICE));
 
-        Optional<String> comment = of("Foo");
+        final Optional<String> comment = of("Foo");
 
-        Application applicationForLeave = getDummyApplication(person);
+        final Application applicationForLeave = getDummyApplication(person);
         applicationForLeave.setStatus(ApplicationStatus.ALLOWED);
         when(applicationService.save(applicationForLeave)).thenReturn(applicationForLeave);
 
@@ -874,28 +869,28 @@ class ApplicationInteractionServiceImplTest {
 
         sut.cancel(applicationForLeave, canceller, comment);
 
-        Assert.assertEquals("Wrong state", ApplicationStatus.CANCELLED, applicationForLeave.getStatus());
-        Assert.assertEquals("Wrong person", person, applicationForLeave.getPerson());
-        Assert.assertEquals("Wrong canceller", canceller, applicationForLeave.getCanceller());
-        Assert.assertEquals("Wrong cancelled date", LocalDate.now(UTC), applicationForLeave.getCancelDate());
-        Assert.assertTrue("Must be formerly allowed", applicationForLeave.isFormerlyAllowed());
+        assertThat(applicationForLeave.getStatus()).isEqualTo(ApplicationStatus.CANCELLED);
+        assertThat(applicationForLeave.getPerson()).isEqualTo(person);
+        assertThat(applicationForLeave.getCanceller()).isEqualTo(canceller);
+        assertThat(applicationForLeave.getCancelDate()).isEqualTo(LocalDate.now(UTC));
+        assertThat(applicationForLeave.isFormerlyAllowed()).isTrue();
 
         verify(applicationService).save(applicationForLeave);
-        verify(commentService).create(eq(applicationForLeave), eq(ApplicationAction.CANCELLED), eq(comment), eq(canceller));
+        verify(commentService).create(eq(applicationForLeave), eq(CANCELLED), eq(comment), eq(canceller));
         verify(applicationMailService).sendCancelledByOfficeNotification(eq(applicationForLeave), any(ApplicationComment.class));
     }
 
 
     @Test
-    void ensureCancellingNotYetAllowedApplicationForLeaveOnBehalfForSomeOneChangesStateAndOtherAttributesAndSendsAnEmail() {
+    void cancellingNotYetAllowedApplicationAsOffice() {
 
-        Person person = new Person("muster", "Muster", "Marlene", "muster@example.org");
-        Person canceller = new Person("muster", "Muster", "Marlene", "muster@example.org");
-        canceller.setPermissions(asList(USER, Role.OFFICE));
+        final Person person = new Person("muster", "Muster", "Marlene", "muster@example.org");
+        final Person canceller = new Person("muster", "Muster", "Marlene", "muster@example.org");
+        canceller.setPermissions(asList(USER, OFFICE));
 
-        Optional<String> comment = of("Foo");
+        final Optional<String> comment = of("Foo");
 
-        Application applicationForLeave = getDummyApplication(person);
+        final Application applicationForLeave = getDummyApplication(person);
         applicationForLeave.setStatus(WAITING);
         when(applicationService.save(applicationForLeave)).thenReturn(applicationForLeave);
 
@@ -904,26 +899,53 @@ class ApplicationInteractionServiceImplTest {
 
         sut.cancel(applicationForLeave, canceller, comment);
 
-        Assert.assertEquals("Wrong state", ApplicationStatus.REVOKED, applicationForLeave.getStatus());
-        Assert.assertEquals("Wrong person", person, applicationForLeave.getPerson());
-        Assert.assertEquals("Wrong canceller", canceller, applicationForLeave.getCanceller());
-        Assert.assertEquals("Wrong cancelled date", LocalDate.now(UTC), applicationForLeave.getCancelDate());
-        Assert.assertFalse("Must not be formerly allowed", applicationForLeave.isFormerlyAllowed());
+        assertThat(applicationForLeave.getStatus()).isEqualTo(ApplicationStatus.REVOKED);
+        assertThat(applicationForLeave.getPerson()).isEqualTo(person);
+        assertThat(applicationForLeave.getCanceller()).isEqualTo(canceller);
+        assertThat(applicationForLeave.getCancelDate()).isEqualTo(LocalDate.now(UTC));
+        assertThat(applicationForLeave.isFormerlyAllowed()).isFalse();
 
         verify(applicationService).save(applicationForLeave);
         verify(commentService).create(eq(applicationForLeave), eq(ApplicationAction.REVOKED), eq(comment), eq(canceller));
         verify(applicationMailService).sendCancelledByOfficeNotification(eq(applicationForLeave), any(ApplicationComment.class));
     }
 
+    @Test
+    public void cancellingNotYetAllowedApplicationAsUser() {
+
+        final Person person = createPerson("muster");
+        final Person canceller = createPerson("canceller");
+
+        final Optional<String> comment = of("Foo");
+
+        final Application applicationForLeave = getDummyApplication(person);
+        applicationForLeave.setStatus(WAITING);
+        when(applicationService.save(applicationForLeave)).thenReturn(applicationForLeave);
+
+        when(commentService.create(any(Application.class), any(ApplicationAction.class), any(), any(Person.class)))
+            .thenReturn(new ApplicationComment(person));
+
+        sut.cancel(applicationForLeave, canceller, comment);
+
+        assertThat(applicationForLeave.getStatus()).isEqualTo(ApplicationStatus.REVOKED);
+        assertThat(applicationForLeave.getPerson()).isEqualTo(person);
+        assertThat(applicationForLeave.getCanceller()).isEqualTo(canceller);
+        assertThat(applicationForLeave.getCancelDate()).isEqualTo(LocalDate.now(UTC));
+        assertThat(applicationForLeave.isFormerlyAllowed()).isFalse();
+
+        verify(applicationService).save(applicationForLeave);
+        verify(commentService).create(eq(applicationForLeave), eq(ApplicationAction.REVOKED), eq(comment), eq(canceller));
+        verifyZeroInteractions(applicationMailService);
+    }
 
     @Test
     void ensureCancellingApplicationForLeaveUpdatesRemainingVacationDaysWithTheYearOfTheStartDateAsStartYear() {
 
-        Person person = new Person("muster", "Muster", "Marlene", "muster@example.org");
-        Person canceller = new Person("muster", "Muster", "Marlene", "muster@example.org");
-        canceller.setPermissions(asList(USER, Role.OFFICE));
+        final Person person = new Person("muster", "Muster", "Marlene", "muster@example.org");
+        final Person canceller = new Person("muster", "Muster", "Marlene", "muster@example.org");
+        canceller.setPermissions(asList(USER, OFFICE));
 
-        Optional<String> comment = of("Foo");
+        final Optional<String> comment = of("Foo");
 
         final Application applicationForLeave = new Application();
         applicationForLeave.setPerson(person);
