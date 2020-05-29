@@ -224,6 +224,8 @@ class ApplicationMailServiceIT extends TestContainersBase {
         comment.setText("Bitte stornieren!");
 
         final Application application = createApplication(person);
+        application.setStartDate(LocalDate.of(2020, 5, 29));
+        application.setEndDate(LocalDate.of(2020, 5, 29));
 
         final Person relevantPerson = new Person("relevant", "Person", "Relevant", "relevantperson@firma.test");
         when(applicationRecipientService.getRelevantRecipients(application)).thenReturn(List.of(relevantPerson));
@@ -241,7 +243,7 @@ class ApplicationMailServiceIT extends TestContainersBase {
         String contentPerson = (String) msgPerson.getContent();
         assertThat(contentPerson).contains("Hallo Lieschen Müller");
         assertThat(contentPerson).contains("deine Anfrage zum Stornieren deines bereits genehmigten Antrags ");
-        assertThat(contentPerson).contains("26.08.2020 bis 26.08.2020 wurde eingereicht.");
+        assertThat(contentPerson).contains("29.05.2020 bis 29.05.2020 wurde eingereicht.");
         assertThat(contentPerson).contains("/web/application/1234");
 
         // send mail to all relevant persons?
@@ -505,6 +507,7 @@ class ApplicationMailServiceIT extends TestContainersBase {
         office.setPermissions(singletonList(OFFICE));
 
         final Application application = createApplication(person);
+        application.setApplicationDate(LocalDate.of(2020, 5, 29));
         application.setCanceller(office);
 
         final ApplicationComment comment = new ApplicationComment(person);

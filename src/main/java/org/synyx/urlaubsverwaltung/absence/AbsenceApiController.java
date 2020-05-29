@@ -31,6 +31,7 @@ import static org.synyx.urlaubsverwaltung.absence.DayAbsenceDto.Type.SICK_NOTE;
 import static org.synyx.urlaubsverwaltung.absence.DayAbsenceDto.Type.VACATION;
 import static org.synyx.urlaubsverwaltung.api.SwaggerConfig.EXAMPLE_YEAR;
 import static org.synyx.urlaubsverwaltung.application.domain.ApplicationStatus.ALLOWED;
+import static org.synyx.urlaubsverwaltung.application.domain.ApplicationStatus.ALLOWED_CANCEL_RE;
 import static org.synyx.urlaubsverwaltung.application.domain.ApplicationStatus.TEMPORARY_ALLOWED;
 import static org.synyx.urlaubsverwaltung.application.domain.ApplicationStatus.WAITING;
 import static org.synyx.urlaubsverwaltung.security.SecurityRules.IS_BOSS_OR_OFFICE;
@@ -129,7 +130,8 @@ public class AbsenceApiController {
             .filter(application ->
                 application.hasStatus(WAITING)
                     || application.hasStatus(TEMPORARY_ALLOWED)
-                    || application.hasStatus(ALLOWED))
+                    || application.hasStatus(ALLOWED)
+                    || application.hasStatus(ALLOWED_CANCEL_RE))
             .collect(toList());
 
         for (Application application : applications) {
