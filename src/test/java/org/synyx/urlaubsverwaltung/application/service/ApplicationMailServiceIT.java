@@ -543,7 +543,7 @@ class ApplicationMailServiceIT extends TestContainersBase {
 
         String contentRelevantPerson = (String) msgRelevantPerson.getContent();
         assertThat(contentRelevantPerson).contains("Hallo Relevant Person");
-        assertThat(contentRelevantPerson).contains("Marlene Muster hat den Urlaubsantrag von Lieschen Müller vom 26.08.2020 storniert.");
+        assertThat(contentRelevantPerson).contains("Marlene Muster hat den Urlaubsantrag von Lieschen Müller vom 29.05.2020 storniert.");
         assertThat(contentRelevantPerson).contains(comment.getText());
         assertThat(contentRelevantPerson).contains(comment.getPerson().getNiceName());
         assertThat(contentRelevantPerson).contains("/web/application/1234");
