@@ -30,6 +30,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 import static org.synyx.urlaubsverwaltung.TestDataCreator.createDepartment;
 import static org.synyx.urlaubsverwaltung.application.domain.ApplicationStatus.ALLOWED;
+import static org.synyx.urlaubsverwaltung.application.domain.ApplicationStatus.ALLOWED_CANCEL_RE;
 import static org.synyx.urlaubsverwaltung.application.domain.ApplicationStatus.TEMPORARY_ALLOWED;
 import static org.synyx.urlaubsverwaltung.application.domain.ApplicationStatus.WAITING;
 
@@ -328,6 +329,7 @@ class DepartmentServiceImplTest {
         Application waitingApplication = mock(Application.class);
         when(waitingApplication.hasStatus(TEMPORARY_ALLOWED)).thenReturn(true);
         when(waitingApplication.hasStatus(ALLOWED)).thenReturn(false);
+        when(waitingApplication.hasStatus(ALLOWED_CANCEL_RE)).thenReturn(false);
 
         Application allowedApplication = mock(Application.class);
         when(allowedApplication.hasStatus(ALLOWED)).thenReturn(true);
@@ -336,6 +338,7 @@ class DepartmentServiceImplTest {
         when(otherApplication.hasStatus(TEMPORARY_ALLOWED)).thenReturn(false);
         when(otherApplication.hasStatus(WAITING)).thenReturn(false);
         when(otherApplication.hasStatus(ALLOWED)).thenReturn(false);
+        when(otherApplication.hasStatus(ALLOWED_CANCEL_RE)).thenReturn(false);
 
         when(departmentRepository.getAssignedDepartments(person)).thenReturn(asList(admins, marketing));
 
