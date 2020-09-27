@@ -95,13 +95,11 @@
 
                 <div class="tab-pane active" id="absence">
                     <div class="form-section tw-mb-8">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h2 class="tw-text-2xl tw-font-normal tw-m-0 tw-mb-4 lg:tw-mb-6 separator-bottom">
-                                    <spring:message code="settings.vacation.title"/>
-                                </h2>
-                            </div>
-                        </div>
+                        <uv:section-heading>
+                            <h2>
+                                <spring:message code="settings.vacation.title"/>
+                            </h2>
+                        </uv:section-heading>
                         <div class="row">
                             <div class="col-md-4 col-md-push-8">
                                 <span class="help-block tw-text-sm">
@@ -145,13 +143,11 @@
                     </div>
 
                     <div class="form-section tw-mb-8">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h2 class="tw-text-2xl tw-font-normal tw-m-0 tw-mb-4 lg:tw-mb-6 separator-bottom">
-                                    <spring:message code="settings.vacation.remindForWaitingApplications.title"/>
-                                </h2>
-                            </div>
-                        </div>
+                        <uv:section-heading>
+                            <h2>
+                                <spring:message code="settings.vacation.remindForWaitingApplications.title"/>
+                            </h2>
+                        </uv:section-heading>
                         <div class="row">
                             <div class="col-md-4 col-md-push-8">
                                 <span class="help-block tw-text-sm">
@@ -205,13 +201,11 @@
                     </div>
 
                     <div class="form-section">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h2 class="tw-text-2xl tw-font-normal tw-m-0 tw-mb-4 lg:tw-mb-6 separator-bottom">
-                                    <spring:message code="settings.sickDays.title"/>
-                                </h2>
-                            </div>
-                        </div>
+                        <uv:section-heading>
+                            <h2>
+                                <spring:message code="settings.sickDays.title"/>
+                            </h2>
+                        </uv:section-heading>
                         <div class="row">
                             <div class="col-md-4 col-md-push-8">
                                 <span class="help-block tw-text-sm">
@@ -255,13 +249,11 @@
 
                 <div class="tab-pane" id="publicHolidays">
                     <div class="form-section">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h2 class="tw-text-2xl tw-font-normal tw-m-0 tw-mb-4 lg:tw-mb-6 separator-bottom">
-                                    <spring:message code="settings.publicHolidays.title"/>
-                                </h2>
-                            </div>
-                        </div>
+                        <uv:section-heading>
+                            <h2>
+                                <spring:message code="settings.publicHolidays.title"/>
+                            </h2>
+                        </uv:section-heading>
                         <div class="row">
                             <div class="col-md-4 col-md-push-8">
                                 <span class="help-block tw-text-sm">
@@ -324,13 +316,11 @@
                     </div>
 
                     <div class="form-section">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h2 class="tw-text-2xl tw-font-normal tw-m-0 tw-mb-4 lg:tw-mb-6 separator-bottom">
-                                    <spring:message code="settings.overtime.title"/>
-                                </h2>
-                            </div>
-                        </div>
+                        <uv:section-heading>
+                            <h2>
+                                <spring:message code="settings.overtime.title"/>
+                            </h2>
+                        </uv:section-heading>
                         <div class="row">
                             <div class="col-md-4 col-md-push-8">
                                 <span class="help-block tw-text-sm">
@@ -397,12 +387,11 @@
                     </div>
 
                     <div class="form-section">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h2 class="tw-text-2xl tw-font-normal tw-m-0 tw-mb-4 lg:tw-mb-6 separator-bottom">
-                                    <spring:message code="settings.calendar.title"/>
-                                </h2>
-                            </div>
+                        <uv:section-heading>
+                            <h2>
+                                <spring:message code="settings.calendar.title"/>
+                            </h2>
+                        </uv:section-heading>
                         </div>
                         <div class="row">
                             <div class="col-md-4 col-md-push-8">
@@ -459,13 +448,11 @@
                     </div>
 
                     <div class="form-section" id="exchange-calendar">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <h2 class="tw-text-2xl tw-font-normal tw-m-0 tw-mb-4 lg:tw-mb-6 separator-bottom">
-                                    <spring:message code="settings.calendar.ews.title"/>
-                                </h2>
-                            </div>
-                        </div>
+                        <uv:section-heading>
+                            <h2>
+                                <spring:message code="settings.calendar.ews.title"/>
+                            </h2>
+                        </uv:section-heading>
                         <div class="row">
                             <div class="col-md-4 col-md-push-8">
                                 <span class="help-block tw-text-sm">
