@@ -36,68 +36,82 @@
                         <spring:message code="sicknote.convert.title"/>
                     </legend>
 
-                    <div class="form-group">
-                        <form:hidden path="person" value="${sickNoteConvertForm.person.id}"/>
-                        <label class="control-label col-sm-12 col-md-4">
-                            <spring:message code='sicknote.data.person'/>:
-                        </label>
+                    <form:hidden path="person" value="${sickNoteConvertForm.person.id}"/>
 
-                        <div class="col-md-7">
+                    <uv:form-group>
+                        <jsp:attribute name="label">
+                            <uv:form-label htmlFor="">
+                                <spring:message code='sicknote.data.person'/>:
+                            </uv:form-label>
+                        </jsp:attribute>
+                        <jsp:attribute name="input">
                             <c:out value="${sickNoteConvertForm.person.niceName}"/>
-                        </div>
-                    </div>
+                        </jsp:attribute>
+                    </uv:form-group>
 
-                    <div class="form-group is-required">
-                        <label class="control-label col-md-4">
-                            <spring:message code="application.data.vacationType"/>:
-                        </label>
-
-                        <div class="col-md-7">
-                            <form:select path="vacationType" size="1" cssClass="form-control"
-                                         cssErrorClass="form-control error">
+                    <uv:form-group required="true">
+                        <jsp:attribute name="label">
+                            <uv:form-label htmlFor="">
+                                <spring:message code="application.data.vacationType"/>:
+                            </uv:form-label>
+                        </jsp:attribute>
+                        <jsp:attribute name="input">
+                            <form:select
+                                path="vacationType"
+                                size="1"
+                                cssClass="form-control"
+                                cssErrorClass="form-control error"
+                            >
                                 <c:forEach items="${vacationTypes}" var="vacationType">
                                     <option value="${vacationType.id}">
                                         <spring:message code="${vacationType.messageKey}"/>
                                     </option>
                                 </c:forEach>
                             </form:select>
-                            <span class="help-inline"><form:errors path="vacationType" cssClass="error"/></span>
-                        </div>
-                    </div>
+                        </jsp:attribute>
+                        <jsp:attribute name="error">
+                            <form:errors path="vacationType" />
+                        </jsp:attribute>
+                    </uv:form-group>
 
-                    <div class="form-group">
-                        <form:hidden path="dayLength"/>
-                        <form:hidden path="startDate"/>
-                        <form:hidden path="endDate"/>
+                    <form:hidden path="dayLength"/>
+                    <form:hidden path="startDate"/>
+                    <form:hidden path="endDate"/>
 
-                        <label class="control-label col-md-4">
-                            <spring:message code="absence.period"/>:
-                        </label>
+                    <uv:form-group>
+                        <jsp:attribute name="label">
+                            <uv:form-label htmlFor="">
+                                <spring:message code="absence.period"/>:
+                            </uv:form-label>
+                        </jsp:attribute>
+                        <jsp:attribute name="input">
 
-                        <div class="col-md-7">
+                        </jsp:attribute>
+                        <jsp:attribute name="error">
                             <uv:date date="${sickNoteConvertForm.startDate}"/> - <uv:date
                             date="${sickNoteConvertForm.endDate}"/>, <spring:message
                             code="${sickNoteConvertForm.dayLength}"/>
-                        </div>
-                    </div>
+                        </jsp:attribute>
+                    </uv:form-group>
 
-                    <div class="form-group is-required">
-                        <label class="control-label col-md-4">
-                            <spring:message code="application.data.reason"/>:
-                        </label>
-
-                        <div class="col-md-7">
+                    <uv:form-group required="true">
+                        <jsp:attribute name="label">
+                            <uv:form-label htmlFor="reason">
+                                <spring:message code="application.data.reason"/>:
+                            </uv:form-label>
+                        </jsp:attribute>
+                        <jsp:attribute name="input">
                             <span id="count-chars"></span><spring:message code="action.comment.maxChars"/>
                             <br/>
                             <form:textarea id="reason" path="reason" cssClass="form-control"
                                            cssErrorClass="form-control error" rows="2"
                                            onkeyup="count(this.value, 'count-chars');"
                                            onkeydown="maxChars(this,200); count(this.value, 'count-chars');"/>
-                            <span class="help-inline"><form:errors path="reason" cssClass="error"/></span>
-                        </div>
-
-                    </div>
-
+                        </jsp:attribute>
+                        <jsp:attribute name="error">
+                            <form:errors path="reason" />
+                        </jsp:attribute>
+                    </uv:form-group>
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-6">

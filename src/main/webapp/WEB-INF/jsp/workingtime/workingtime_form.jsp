@@ -60,34 +60,43 @@
                     </div>
 
                     <div class="col-md-8 col-md-pull-4">
-                        <div class="form-group">
-                            <label class="control-label col-md-3" for="federalStateType">
-                                <spring:message code='settings.publicHolidays.federalState'/>:
-                            </label>
-
-                            <div class="col-md-9">
+                        <uv:form-group>
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="federalStateType">
+                                    <spring:message code='settings.publicHolidays.federalState'/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
                                 <form:select path="federalState" id="federalStateType" class="form-control"
                                              cssErrorClass="form-control error">
-                                    <form:option value=""><spring:message
-                                        code="person.form.workingTime.federalState.default"
-                                        arguments="${defaultFederalStateName}"/></form:option>
+                                    <form:option value="">
+                                        <spring:message
+                                            code="person.form.workingTime.federalState.default"
+                                            arguments="${defaultFederalStateName}"
+                                        />
+                                    </form:option>
                                     <option disabled='true'>---------------</option>
                                     <c:forEach items="${federalStateTypes}" var="federalStateType">
-                                        <form:option value="${federalStateType}"><spring:message
-                                            code="federalState.${federalStateType}"/></form:option>
+                                        <form:option value="${federalStateType}">
+                                            <spring:message code="federalState.${federalStateType}"/>
+                                        </form:option>
                                     </c:forEach>
                                 </form:select>
-                            </div>
-                        </div>
+                            </jsp:attribute>
+                        </uv:form-group>
 
                         <c:if test="${fn:length(workingTimes) > 1}">
-                        <div class="form-group">
-                            <label class="col-md-3">
-                                <spring:message code='person.form.workingTime.existent'/>:
-                            </label>
+                            <uv:form-group>
+                                <jsp:attribute name="label">
+                                    <uv:form-label htmlFor="">
+                                        <spring:message code='person.form.workingTime.existent'/>:
+                                    </uv:form-label>
+                                </jsp:attribute>
+                                <jsp:attribute name="input">
 
-                            <div class="col-md-9">
-                                <ul class="tw-list-none tw-m-0 tw-p-0 tw-space-y-2 tw-text-sm">
+                                </jsp:attribute>
+                                <jsp:attribute name="error">
+                                    <ul class="tw-list-none tw-m-0 tw-p-0 tw-space-y-2 tw-text-sm">
                                     <c:forEach items="${workingTimes}" var="time">
                                         <li>
                                             <div>
@@ -117,42 +126,53 @@
                                             </c:if>
                                         </li>
                                     </c:forEach>
-                                </ul>
-                            </div>
-                        </div>
+                                    </ul>
+                                </jsp:attribute>
+                            </uv:form-group>
                         </c:if>
 
-                        <div class="form-group is-required">
-                            <label class="control-label col-md-3">
-                                <spring:message code="person.form.workingTime.validityPeriod"/>:
-                            </label>
-                            <div class="col-md-9">
+                        <uv:form-group required="true">
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="">
+                                    <spring:message code="person.form.workingTime.validityPeriod"/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
                                 <c:set var="DATE_PATTERN">
                                     <spring:message code="pattern.date"/>
                                 </c:set>
-                                <form:input id="validFrom" path="validFrom" class="form-control"
-                                            cssErrorClass="form-control error"
-                                            placeholder="${DATE_PATTERN}"/>
-                                <span class="help-inline"><form:errors path="validFrom" cssClass="error"/></span>
-                            </div>
-                        </div>
+                                <uv:form-input
+                                    id="validFrom"
+                                    path="validFrom"
+                                    placeholder="${DATE_PATTERN}"
+                                />
+                            </jsp:attribute>
+                            <jsp:attribute name="error">
+                                <form:errors path="validFrom" cssClass="error"/>
+                            </jsp:attribute>
+                        </uv:form-group>
 
-                        <div class="form-group is-required">
-                            <label class="control-label col-md-3">
-                                <spring:message code="person.form.workingTime.weekDays"/>:
-                            </label>
-                            <div class="col-md-9">
+                        <uv:form-group required="true">
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="">
+                                    <spring:message code="person.form.workingTime.weekDays"/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
                                 <c:forEach items="${weekDays}" var="weekDay">
                                     <div class="checkbox">
                                         <label for="${weekDay}">
-                                            <form:checkbox id="${weekDay}" path="workingDays"
-                                                           value="${weekDay.dayOfWeek}"/>
+                                            <form:checkbox
+                                                id="${weekDay}"
+                                                path="workingDays"
+                                                value="${weekDay.dayOfWeek}"
+                                            />
                                             <spring:message code='${weekDay}'/>
                                         </label>
                                     </div>
                                 </c:forEach>
-                            </div>
-                        </div>
+                            </jsp:attribute>
+                        </uv:form-group>
                     </div>
                 </div>
             </div>

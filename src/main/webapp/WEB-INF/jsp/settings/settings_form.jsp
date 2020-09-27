@@ -30,9 +30,7 @@
 
 <div class="content">
     <div class="container">
-
-        <form:form method="POST" action="${URL_PREFIX}/settings" modelAttribute="settings" class="form-horizontal"
-                   role="form">
+        <form:form method="POST" action="${URL_PREFIX}/settings" modelAttribute="settings" class="form-horizontal" role="form">
             <form:hidden path="id"/>
             <button type="submit" hidden></button>
 
@@ -108,36 +106,40 @@
                                 </span>
                             </div>
                             <div class="col-md-8 col-md-pull-4">
-                                <div class="form-group is-required">
-                                    <label class="control-label col-md-4"
-                                           for="absenceSettings.maximumAnnualVacationDays">
-                                        <spring:message code='settings.vacation.maximumAnnualVacationDays'/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:input id="absenceSettings.maximumAnnualVacationDays"
-                                                    path="absenceSettings.maximumAnnualVacationDays"
-                                                    class="form-control" cssErrorClass="form-control error"
-                                                    type="number" step="1"/>
-                                        <span class="help-inline"><form:errors
+                                <uv:form-group required="true">
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="absenceSettings.maximumAnnualVacationDays">
+                                            <spring:message code='settings.vacation.maximumAnnualVacationDays'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <uv:form-input-number
+                                            id="absenceSettings.maximumAnnualVacationDays"
                                             path="absenceSettings.maximumAnnualVacationDays"
-                                            cssClass="error"/></span>
-                                    </div>
-                                </div>
-                                <div class="form-group is-required">
-                                    <label class="control-label col-md-4"
-                                           for="absenceSettings.maximumMonthsToApplyForLeaveInAdvance">
-                                        <spring:message code='settings.vacation.maximumMonthsToApplyForLeaveInAdvance'/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:input id="absenceSettings.maximumMonthsToApplyForLeaveInAdvance"
-                                                    path="absenceSettings.maximumMonthsToApplyForLeaveInAdvance"
-                                                    class="form-control" cssErrorClass="form-control error"
-                                                    type="number" step="1"/>
-                                        <span class="help-inline"><form:errors
+                                            step="1"
+                                        />
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="absenceSettings.maximumAnnualVacationDays" />
+                                    </jsp:attribute>
+                                </uv:form-group>
+                                <uv:form-group required="true">
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="absenceSettings.maximumMonthsToApplyForLeaveInAdvance">
+                                            <spring:message code='settings.vacation.maximumMonthsToApplyForLeaveInAdvance'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <uv:form-input-number
+                                            id="absenceSettings.maximumMonthsToApplyForLeaveInAdvance"
                                             path="absenceSettings.maximumMonthsToApplyForLeaveInAdvance"
-                                            cssClass="error"/></span>
-                                    </div>
-                                </div>
+                                            step="1"
+                                        />
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="absenceSettings.maximumMonthsToApplyForLeaveInAdvance" />
+                                    </jsp:attribute>
+                                </uv:form-group>
                             </div>
                         </div>
                     </div>
@@ -156,46 +158,50 @@
                                 </span>
                             </div>
                             <div class="col-md-8 col-md-pull-4">
-
-                                <div class="form-group is-required">
-                                    <label class="control-label col-md-4"
-                                           for="absenceSettings.remindForWaitingApplications.true">
-                                        <spring:message code='settings.vacation.remindForWaitingApplications'/>:
-                                    </label>
-                                    <div class="col-md-8 radio">
-                                        <label class="halves">
-                                            <form:radiobutton id="absenceSettings.remindForWaitingApplications.true"
-                                                              path="absenceSettings.remindForWaitingApplications"
-                                                              value="true"/>
-                                            <spring:message code="settings.vacation.remindForWaitingApplications.true"/>
-                                        </label>
-                                        <label class="halves">
-                                            <form:radiobutton id="absenceSettings.remindForWaitingApplications.false"
-                                                              path="absenceSettings.remindForWaitingApplications"
-                                                              value="false"/>
-                                            <spring:message
-                                                code="settings.vacation.remindForWaitingApplications.false"/>
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group is-required">
-                                    <label class="control-label col-md-4"
-                                           for="absenceSettings.daysBeforeRemindForWaitingApplications">
-                                        <spring:message
-                                            code='settings.vacation.daysBeforeRemindForWaitingApplications'/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:input id="absenceSettings.daysBeforeRemindForWaitingApplications"
-                                                    path="absenceSettings.daysBeforeRemindForWaitingApplications"
-                                                    class="form-control" cssErrorClass="form-control error"
-                                                    type="number" step="1"/>
-                                        <span class="help-inline"><form:errors
+                                <uv:form-group required="true">
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="absenceSettings.remindForWaitingApplications.true">
+                                            <spring:message code='settings.vacation.remindForWaitingApplications'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <span class="radio">
+                                            <label class="halves">
+                                                <form:radiobutton
+                                                    id="absenceSettings.remindForWaitingApplications.true"
+                                                    path="absenceSettings.remindForWaitingApplications"
+                                                    value="true"
+                                                />
+                                                <spring:message code="settings.vacation.remindForWaitingApplications.true"/>
+                                            </label>
+                                            <label class="halves">
+                                                <form:radiobutton
+                                                    id="absenceSettings.remindForWaitingApplications.false"
+                                                    path="absenceSettings.remindForWaitingApplications"
+                                                    value="false"
+                                                />
+                                                <spring:message code="settings.vacation.remindForWaitingApplications.false"/>
+                                            </label>
+                                        </span>
+                                    </jsp:attribute>
+                                </uv:form-group>
+                                <uv:form-group required="true">
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="absenceSettings.daysBeforeRemindForWaitingApplications">
+                                            <spring:message code='settings.vacation.daysBeforeRemindForWaitingApplications'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <uv:form-input-number
+                                            id="absenceSettings.daysBeforeRemindForWaitingApplications"
                                             path="absenceSettings.daysBeforeRemindForWaitingApplications"
-                                            cssClass="error"/></span>
-                                    </div>
-                                </div>
-
+                                            step="1"
+                                        />
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="absenceSettings.daysBeforeRemindForWaitingApplications" />
+                                    </jsp:attribute>
+                                </uv:form-group>
                             </div>
                         </div>
                     </div>
@@ -214,34 +220,40 @@
                                 </span>
                             </div>
                             <div class="col-md-8 col-md-pull-4">
-                                <div class="form-group is-required">
-                                    <label class="control-label col-md-4" for="absenceSettings.maximumSickPayDays">
-                                        <spring:message code='settings.sickDays.maximumSickPayDays'/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:input id="absenceSettings.maximumSickPayDays"
-                                                    path="absenceSettings.maximumSickPayDays" class="form-control"
-                                                    cssErrorClass="form-control error"
-                                                    type="number" step="1"/>
-                                        <span class="help-inline"><form:errors path="absenceSettings.maximumSickPayDays"
-                                                                               cssClass="error"/></span>
-                                    </div>
-                                </div>
-                                <div class="form-group is-required">
-                                    <label class="control-label col-md-4"
-                                           for="absenceSettings.daysBeforeEndOfSickPayNotification">
-                                        <spring:message code='settings.sickDays.daysBeforeEndOfSickPayNotification'/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:input id="absenceSettings.daysBeforeEndOfSickPayNotification"
-                                                    path="absenceSettings.daysBeforeEndOfSickPayNotification"
-                                                    class="form-control" cssErrorClass="form-control error"
-                                                    type="number" step="1"/>
-                                        <span class="help-inline"><form:errors
+                                <uv:form-group required="true">
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="absenceSettings.maximumSickPayDays">
+                                            <spring:message code='settings.sickDays.maximumSickPayDays'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <uv:form-input-number
+                                            id="absenceSettings.maximumSickPayDays"
+                                            path="absenceSettings.maximumSickPayDays"
+                                            step="1"
+                                        />
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="absenceSettings.maximumSickPayDays" />
+                                    </jsp:attribute>
+                                </uv:form-group>
+                                <uv:form-group required="true">
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="absenceSettings.daysBeforeEndOfSickPayNotification">
+                                            <spring:message code='settings.sickDays.daysBeforeEndOfSickPayNotification'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <uv:form-input-number
+                                            id="absenceSettings.daysBeforeEndOfSickPayNotification"
                                             path="absenceSettings.daysBeforeEndOfSickPayNotification"
-                                            cssClass="error"/></span>
-                                    </div>
-                                </div>
+                                            step="1"
+                                        />
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="absenceSettings.daysBeforeEndOfSickPayNotification" />
+                                    </jsp:attribute>
+                                </uv:form-group>
                             </div>
                         </div>
                     </div>
@@ -262,55 +274,69 @@
                                 </span>
                             </div>
                             <div class="col-md-8 col-md-pull-4">
-                                <div class="form-group is-required">
-                                    <label class="control-label col-md-4"
-                                           for="workingTimeSettings.workingDurationForChristmasEve">
-                                        <spring:message code='settings.publicHolidays.workingDuration.christmasEve'/>:
-                                    </label>
-
-                                    <div class="col-md-8">
-                                        <form:select path="workingTimeSettings.workingDurationForChristmasEve"
-                                                     id="dayLengthTypesChristmasEve" class="form-control"
-                                                     cssErrorClass="form-control error">
+                                <uv:form-group required="true">
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="workingTimeSettings.workingDurationForChristmasEve">
+                                            <spring:message code='settings.publicHolidays.workingDuration.christmasEve'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <form:select
+                                            path="workingTimeSettings.workingDurationForChristmasEve"
+                                            id="dayLengthTypesChristmasEve"
+                                            class="form-control"
+                                            cssErrorClass="form-control error"
+                                        >
                                             <c:forEach items="${dayLengthTypes}" var="dayLengthType">
-                                                <form:option value="${dayLengthType}"><spring:message
-                                                    code="${dayLengthType}"/></form:option>
+                                                <form:option value="${dayLengthType}">
+                                                    <spring:message code="${dayLengthType}"/>
+                                                </form:option>
                                             </c:forEach>
                                         </form:select>
-                                    </div>
-                                </div>
-                                <div class="form-group is-required">
-                                    <label class="control-label col-md-4"
-                                           for="workingTimeSettings.workingDurationForNewYearsEve">
-                                        <spring:message code='settings.publicHolidays.workingDuration.newYearsEve'/>:
-                                    </label>
-
-                                    <div class="col-md-8">
-                                        <form:select path="workingTimeSettings.workingDurationForNewYearsEve"
-                                                     id="dayLengthTypesNewYearsEve" class="form-control"
-                                                     cssErrorClass="form-control error">
+                                    </jsp:attribute>
+                                </uv:form-group>
+                                <uv:form-group required="true">
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="workingTimeSettings.workingDurationForNewYearsEve">
+                                            <spring:message code='settings.publicHolidays.workingDuration.newYearsEve'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <form:select
+                                            path="workingTimeSettings.workingDurationForNewYearsEve"
+                                            id="dayLengthTypesNewYearsEve"
+                                            class="form-control"
+                                            cssErrorClass="form-control error"
+                                        >
                                             <c:forEach items="${dayLengthTypes}" var="dayLengthType">
-                                                <form:option value="${dayLengthType}"><spring:message
-                                                    code="${dayLengthType}"/></form:option>
+                                                <form:option value="${dayLengthType}">
+                                                    <spring:message code="${dayLengthType}"/>
+                                                </form:option>
                                             </c:forEach>
                                         </form:select>
-                                    </div>
-                                </div>
-                                <div class="form-group is-required">
-                                    <label class="control-label col-md-4" for="federalStateType">
-                                        <spring:message code='settings.publicHolidays.federalState'/>:
-                                    </label>
-
-                                    <div class="col-md-8">
-                                        <form:select path="workingTimeSettings.federalState" id="federalStateType"
-                                                     class="form-control" cssErrorClass="form-control error">
+                                    </jsp:attribute>
+                                </uv:form-group>
+                                <uv:form-group required="true">
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="federalStateType">
+                                            <spring:message code='settings.publicHolidays.federalState'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <form:select
+                                            path="workingTimeSettings.federalState"
+                                            id="federalStateType"
+                                            class="form-control"
+                                            cssErrorClass="form-control error"
+                                        >
                                             <c:forEach items="${federalStateTypes}" var="federalStateType">
-                                                <form:option value="${federalStateType}"><spring:message
-                                                    code="federalState.${federalStateType}"/></form:option>
+                                                <form:option value="${federalStateType}">
+                                                    <spring:message code="federalState.${federalStateType}"/>
+                                                </form:option>
                                             </c:forEach>
                                         </form:select>
-                                    </div>
-                                </div>
+                                    </jsp:attribute>
+                                </uv:form-group>
                             </div>
                         </div>
                     </div>
@@ -330,50 +356,63 @@
                             </div>
                             <div class="col-md-8 col-md-pull-4">
 
-                                <div class="form-group is-required">
-                                    <label class="control-label col-md-4" for="workingTimeSettings.overtimeActive.true">
-                                        <spring:message code='settings.overtime.overtimeActive'/>:
-                                    </label>
-                                    <div class="col-md-8 radio">
-                                        <label class="halves">
-                                            <form:radiobutton id="workingTimeSettings.overtimeActive.true"
-                                                              path="workingTimeSettings.overtimeActive" value="true"/>
-                                            <spring:message code="settings.overtime.overtimeActive.true"/>
-                                        </label>
-                                        <label class="halves">
-                                            <form:radiobutton id="workingTimeSettings.overtimeActive.false"
-                                                              path="workingTimeSettings.overtimeActive" value="false"/>
-                                            <spring:message code="settings.overtime.overtimeActive.false"/>
-                                        </label>
-                                    </div>
-                                </div>
+                                <uv:form-group required="true">
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="workingTimeSettings.overtimeActive.true">
+                                            <spring:message code='settings.overtime.overtimeActive'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <span class="radio">
+                                            <label class="halves">
+                                                <form:radiobutton id="workingTimeSettings.overtimeActive.true"
+                                                                  path="workingTimeSettings.overtimeActive" value="true"/>
+                                                <spring:message code="settings.overtime.overtimeActive.true"/>
+                                            </label>
+                                            <label class="halves">
+                                                <form:radiobutton id="workingTimeSettings.overtimeActive.false"
+                                                                  path="workingTimeSettings.overtimeActive" value="false"/>
+                                                <spring:message code="settings.overtime.overtimeActive.false"/>
+                                            </label>
+                                        </span>
+                                    </jsp:attribute>
+                                </uv:form-group>
 
-                                <div class="form-group is-required">
-                                    <label class="control-label col-md-4" for="workingTimeSettings.maximumOvertime">
-                                        <spring:message code="settings.overtime.maximum"/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:input id="workingTimeSettings.maximumOvertime"
-                                                    path="workingTimeSettings.maximumOvertime" class="form-control"
-                                                    cssErrorClass="form-control error"
-                                                    type="number" step="1"/>
-                                        <span class="help-inline"><form:errors
-                                            path="workingTimeSettings.maximumOvertime" cssClass="error"/></span>
-                                    </div>
-                                </div>
-                                <div class="form-group is-required">
-                                    <label class="control-label col-md-4" for="workingTimeSettings.minimumOvertime">
-                                        <spring:message code="settings.overtime.minimum"/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:input id="workingTimeSettings.minimumOvertime"
-                                                    path="workingTimeSettings.minimumOvertime" class="form-control"
-                                                    cssErrorClass="form-control error"
-                                                    type="number" step="1"/>
-                                        <span class="help-inline"><form:errors
-                                            path="workingTimeSettings.minimumOvertime" cssClass="error"/></span>
-                                    </div>
-                                </div>
+                                <uv:form-group required="true">
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="workingTimeSettings.maximumOvertime">
+                                            <spring:message code="settings.overtime.maximum"/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <uv:form-input-number
+                                            id="workingTimeSettings.maximumOvertime"
+                                            path="workingTimeSettings.maximumOvertime"
+                                            step="1"
+                                        />
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="workingTimeSettings.maximumOvertime" />
+                                    </jsp:attribute>
+                                </uv:form-group>
+
+                                <uv:form-group required="true">
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="workingTimeSettings.minimumOvertime">
+                                            <spring:message code="settings.overtime.minimum"/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <uv:form-input-number
+                                            id="workingTimeSettings.minimumOvertime"
+                                            path="workingTimeSettings.minimumOvertime"
+                                            step="1"
+                                        />
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="workingTimeSettings.minimumOvertime" />
+                                    </jsp:attribute>
+                                </uv:form-group>
                             </div>
                         </div>
                     </div>
@@ -392,7 +431,6 @@
                                 <spring:message code="settings.calendar.title"/>
                             </h2>
                         </uv:section-heading>
-                        </div>
                         <div class="row">
                             <div class="col-md-4 col-md-push-8">
                                 <span class="help-block tw-text-sm">
@@ -401,48 +439,64 @@
                                 </span>
                             </div>
                             <div class="col-md-8 col-md-pull-4">
-                                <div class="form-group is-required">
-                                    <label class="control-label col-md-4" for="calendarSettings.workDayBeginHour">
-                                        <spring:message code='settings.calendar.workDay.begin'/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:input id="calendarSettings.workDayBeginHour"
-                                                    path="calendarSettings.workDayBeginHour" class="form-control"
-                                                    cssErrorClass="form-control error"
-                                                    type="number" step="1"/>
-                                        <span class="help-inline"><form:errors path="calendarSettings.workDayBeginHour"
-                                                                               cssClass="error"/></span>
-                                    </div>
-                                </div>
-                                <div class="form-group is-required">
-                                    <label class="control-label col-md-4" for="calendarSettings.workDayEndHour">
-                                        <spring:message code='settings.calendar.workDay.end'/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:input id="calendarSettings.workDayEndHour"
-                                                    path="calendarSettings.workDayEndHour" class="form-control"
-                                                    cssErrorClass="form-control error"
-                                                    type="number" step="1"/>
-                                        <span class="help-inline"><form:errors path="calendarSettings.workDayEndHour"
-                                                                               cssClass="error"/></span>
-                                    </div>
-                                </div>
-                                <div class="form-group is-required">
-                                    <label class="control-label col-md-4" for="calendarSettingsProvider">
-                                        <spring:message code='settings.calendar.provider'/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:select id="calendarSettingsProvider" path="calendarSettings.provider"
-                                                     class="form-control" cssErrorClass="form-control error">
+                                <uv:form-group required="true">
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="calendarSettings.workDayBeginHour">
+                                            <spring:message code='settings.calendar.workDay.begin'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <uv:form-input-number
+                                            id="calendarSettings.workDayBeginHour"
+                                            path="calendarSettings.workDayBeginHour"
+                                            step="1"
+                                        />
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="calendarSettings.workDayBeginHour" />
+                                    </jsp:attribute>
+                                </uv:form-group>
+                                <uv:form-group required="true">
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="calendarSettings.workDayEndHour">
+                                            <spring:message code='settings.calendar.workDay.end'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <uv:form-input-number
+                                            id="calendarSettings.workDayEndHour"
+                                            path="calendarSettings.workDayEndHour"
+                                            step="1"
+                                        />
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="calendarSettings.workDayEndHour" />
+                                    </jsp:attribute>
+                                </uv:form-group>
+                                <uv:form-group required="true">
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="calendarSettingsProvider">
+                                            <spring:message code='settings.calendar.provider'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <form:select
+                                            id="calendarSettingsProvider"
+                                            path="calendarSettings.provider"
+                                            class="form-control"
+                                            cssErrorClass="form-control error"
+                                        >
                                             <c:forEach items="${providers}" var="provider">
-                                                <form:option value="${provider}"><spring:message
-                                                    code="settings.calendar.provider.${provider}"/></form:option>
+                                                <form:option value="${provider}">
+                                                    <spring:message code="settings.calendar.provider.${provider}"/>
+                                                </form:option>
                                             </c:forEach>
                                         </form:select>
-                                        <span class="help-inline"><form:errors path="calendarSettings.provider"
-                                                                               cssClass="error"/></span>
-                                    </div>
-                                </div>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="calendarSettings.provider" />
+                                    </jsp:attribute>
+                                </uv:form-group>
                             </div>
                         </div>
                     </div>
@@ -461,98 +515,117 @@
                                 </span>
                             </div>
                             <div class="col-md-8 col-md-pull-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4"
-                                           for="calendarSettings.exchangeCalendarSettings.email">
-                                        <spring:message code='settings.calendar.ews.email'/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:input id="calendarSettings.exchangeCalendarSettings.email"
-                                                    path="calendarSettings.exchangeCalendarSettings.email"
-                                                    class="form-control" cssErrorClass="form-control error"/>
-                                        <span class="help-inline"><form:errors
+                                <uv:form-group>
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="calendarSettings.exchangeCalendarSettings.email">
+                                            <spring:message code='settings.calendar.ews.email'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <uv:form-input
+                                            id="calendarSettings.exchangeCalendarSettings.email"
                                             path="calendarSettings.exchangeCalendarSettings.email"
-                                            cssClass="error"/></span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4"
-                                           for="calendarSettings.exchangeCalendarSettings.password">
-                                        <spring:message code='settings.calendar.ews.password'/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:password showPassword="true"
-                                                       id="calendarSettings.exchangeCalendarSettings.password"
-                                                       path="calendarSettings.exchangeCalendarSettings.password"
-                                                       class="form-control" cssErrorClass="form-control error"/>
-                                        <span class="help-inline"><form:errors
+                                            type="email"
+                                        />
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="calendarSettings.exchangeCalendarSettings.email" />
+                                    </jsp:attribute>
+                                </uv:form-group>
+                                <uv:form-group>
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="calendarSettings.exchangeCalendarSettings.password">
+                                            <spring:message code='settings.calendar.ews.password'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <form:password
+                                            showPassword="true"
+                                            id="calendarSettings.exchangeCalendarSettings.password"
                                             path="calendarSettings.exchangeCalendarSettings.password"
-                                            cssClass="error"/></span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4"
-                                           for="calendarSettings.exchangeCalendarSettings.ewsUrl">
-                                        <spring:message code='settings.calendar.ews.url'/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:input id="calendarSettings.exchangeCalendarSettings.ewsUrl"
-                                                    path="calendarSettings.exchangeCalendarSettings.ewsUrl"
-                                                    class="form-control" cssErrorClass="form-control error"/>
-                                        <span class="help-inline"><form:errors
+                                            class="form-control"
+                                            cssErrorClass="form-control error"
+                                        />
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="calendarSettings.exchangeCalendarSettings.password" />
+                                    </jsp:attribute>
+                                </uv:form-group>
+                                <uv:form-group>
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="calendarSettings.exchangeCalendarSettings.ewsUrl">
+                                            <spring:message code='settings.calendar.ews.url'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <uv:form-input
+                                            id="calendarSettings.exchangeCalendarSettings.ewsUrl"
                                             path="calendarSettings.exchangeCalendarSettings.ewsUrl"
-                                            cssClass="error"/></span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4"
-                                           for="calendarSettings.exchangeCalendarSettings.calendar">
-                                        <spring:message code='settings.calendar.ews.calendar'/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:input id="calendarSettings.exchangeCalendarSettings.calendar"
-                                                    path="calendarSettings.exchangeCalendarSettings.calendar"
-                                                    class="form-control" cssErrorClass="form-control error"/>
-                                        <span class="help-inline"><form:errors
+                                        />
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="calendarSettings.exchangeCalendarSettings.ewsUrl" />
+                                    </jsp:attribute>
+                                </uv:form-group>
+                                <uv:form-group>
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="calendarSettings.exchangeCalendarSettings.calendar">
+                                            <spring:message code='settings.calendar.ews.calendar'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <uv:form-input
+                                            id="calendarSettings.exchangeCalendarSettings.calendar"
                                             path="calendarSettings.exchangeCalendarSettings.calendar"
-                                            cssClass="error"/></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-4"
-                                           for="calendarSettings.exchangeCalendarSettings.timeZoneId">
-                                        <spring:message code='settings.calendar.ews.timeZoneId'/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:select id="calendarSettings.exchangeCalendarSettings.timeZoneId"
-                                                     path="calendarSettings.exchangeCalendarSettings.timeZoneId"
-                                                     class="form-control chosenCombo"
-                                                     cssErrorClass="form-control error">
+                                        />
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="calendarSettings.exchangeCalendarSettings.calendar" />
+                                    </jsp:attribute>
+                                </uv:form-group>
+                                <uv:form-group>
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="calendarSettings.exchangeCalendarSettings.timeZoneId">
+                                            <spring:message code='settings.calendar.ews.timeZoneId'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <form:select
+                                            id="calendarSettings.exchangeCalendarSettings.timeZoneId"
+                                            path="calendarSettings.exchangeCalendarSettings.timeZoneId"
+                                            class="form-control chosenCombo"
+                                            cssErrorClass="form-control error"
+                                        >
                                             <c:forEach items="${availableTimezones}" var="timeZoneId">
-                                                <form:option value="${timeZoneId}">${timeZoneId}</form:option>
+                                                <form:option value="${timeZoneId}">
+                                                    ${timeZoneId}
+                                                </form:option>
                                             </c:forEach>
                                         </form:select>
-                                        <span class="help-inline"><form:errors path="calendarSettings.provider"
-                                                                               cssClass="error"/></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-4"
-                                           for="calendarSettings.exchangeCalendarSettings.sendInvitationActive">
-                                        <spring:message code='settings.calendar.ews.notification'/>:
-                                    </label>
-                                    <div class="col-md-8 checkbox">
-                                        <label>
-                                            <form:checkbox
-                                                id="calendarSettings.exchangeCalendarSettings.sendInvitationActive"
-                                                path="calendarSettings.exchangeCalendarSettings.sendInvitationActive"
-                                                value="true"/>
-                                            <spring:message code="settings.calendar.ews.notification.true"/>
-                                        </label>
-                                    </div>
-                                </div>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="calendarSettings.provider" />
+                                    </jsp:attribute>
+                                </uv:form-group>
+                                <uv:form-group>
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="calendarSettings.exchangeCalendarSettings.sendInvitationActive">
+                                            <spring:message code='settings.calendar.ews.notification'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <span class="checkbox">
+                                            <label>
+                                                <form:checkbox
+                                                    id="calendarSettings.exchangeCalendarSettings.sendInvitationActive"
+                                                    path="calendarSettings.exchangeCalendarSettings.sendInvitationActive"
+                                                    value="true"
+                                                />
+                                                <spring:message code="settings.calendar.ews.notification.true"/>
+                                            </label>
+                                        </span>
+                                    </jsp:attribute>
+                                </uv:form-group>
                             </div>
                         </div>
                     </div>
@@ -571,80 +644,90 @@
                                 </span>
                             </div>
                             <div class="col-md-8 col-md-pull-4">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4"
-                                           for="calendarSettings.googleCalendarSettings.clientId">
-                                        <spring:message code='settings.calendar.google.clientid'/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:input id="calendarSettings.googleCalendarSettings.clientId"
-                                                    path="calendarSettings.googleCalendarSettings.clientId"
-                                                    class="form-control" cssErrorClass="form-control error"/>
-                                        <span class="help-inline"><form:errors
+                                <uv:form-group>
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="calendarSettings.googleCalendarSettings.clientId">
+                                            <spring:message code='settings.calendar.google.clientid'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <uv:form-input
+                                            id="calendarSettings.googleCalendarSettings.clientId"
                                             path="calendarSettings.googleCalendarSettings.clientId"
-                                            cssClass="error"/></span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4"
-                                           for="calendarSettings.googleCalendarSettings.clientSecret">
-                                        <spring:message code='settings.calendar.google.clientsecret'/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:input id="calendarSettings.googleCalendarSettings.clientSecret"
-                                                    path="calendarSettings.googleCalendarSettings.clientSecret"
-                                                    class="form-control" cssErrorClass="form-control error"/>
-                                        <span class="help-inline"><form:errors
+                                        />
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="calendarSettings.googleCalendarSettings.clientId" />
+                                    </jsp:attribute>
+                                </uv:form-group>
+                                <uv:form-group>
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="calendarSettings.googleCalendarSettings.clientSecret">
+                                            <spring:message code='settings.calendar.google.clientsecret'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <uv:form-input
+                                            id="calendarSettings.googleCalendarSettings.clientSecret"
                                             path="calendarSettings.googleCalendarSettings.clientSecret"
-                                            cssClass="error"/></span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4"
-                                           for="calendarSettings.googleCalendarSettings.calendarId">
-                                        <spring:message code='settings.calendar.google.calendarid'/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <form:input id="calendarSettings.googleCalendarSettings.calendarId"
-                                                    path="calendarSettings.googleCalendarSettings.calendarId"
-                                                    class="form-control" cssErrorClass="form-control error"/>
-                                        <span class="help-inline"><form:errors
+                                        />
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="calendarSettings.googleCalendarSettings.clientSecret" />
+                                    </jsp:attribute>
+                                </uv:form-group>
+                                <uv:form-group>
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="calendarSettings.googleCalendarSettings.calendarId">
+                                            <spring:message code='settings.calendar.google.calendarid'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <uv:form-input
+                                            id="calendarSettings.googleCalendarSettings.calendarId"
                                             path="calendarSettings.googleCalendarSettings.calendarId"
-                                            cssClass="error"/></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">
-                                        <spring:message code='settings.calendar.google.redirecturl'/>:
-                                    </label>
-                                    <div class="col-md-8">
-                                        <input class="form-control" type="text"
-                                               name="calendarSettings.googleCalendarSettings.authorizedRedirectUrl"
-                                               value="${authorizedRedirectUrl}" readonly/>
-                                    </div>
-                                </div>
-
+                                        />
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
+                                        <form:errors path="calendarSettings.googleCalendarSettings.calendarId" />
+                                    </jsp:attribute>
+                                </uv:form-group>
+                                <uv:form-group>
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="">
+                                            <spring:message code='settings.calendar.google.redirecturl'/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <uv:form-input
+                                            id="calendarSettings.googleCalendarSettings.authorizedRedirectUrl"
+                                            path="calendarSettings.googleCalendarSettings.authorizedRedirectUrl"
+                                            value="${authorizedRedirectUrl}"
+                                            readonly="true"
+                                        />
+                                    </jsp:attribute>
+                                </uv:form-group>
                                 <div class="form-group">
                                     <c:if test="${not empty oautherrors}">
                                         <p class="text-danger col-md-8 col-md-push-4">
-                                                ${oautherrors}
+                                            ${oautherrors}
                                         </p>
                                     </c:if>
-
                                     <c:choose>
                                         <c:when
                                             test="${settings.calendarSettings.googleCalendarSettings.refreshToken == null}">
-                                            <p class="text-danger col-md-5 col-md-push-4"><spring:message
-                                                code="settings.calendar.google.action.authenticate.description"/></p>
+                                            <p class="text-danger col-md-5 col-md-push-4">
+                                                <spring:message code="settings.calendar.google.action.authenticate.description"/>
+                                            </p>
                                             <button id="googleOAuthButton" value="oauth" name="googleOAuthButton"
                                                     type="submit" class="btn btn-primary col-md-3 col-md-push-4">
                                                 <spring:message code='settings.calendar.google.action.authenticate'/>
                                             </button>
                                         </c:when>
                                         <c:otherwise>
-                                            <p class="text-success col-md-8 col-md-push-4"><spring:message
-                                                code="settings.calendar.google.action.authenticate.success"/></p>
+                                            <p class="text-success col-md-8 col-md-push-4">
+                                                <spring:message code="settings.calendar.google.action.authenticate.success"/>
+                                            </p>
                                         </c:otherwise>
                                     </c:choose>
                                 </div>

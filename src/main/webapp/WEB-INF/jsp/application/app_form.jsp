@@ -100,11 +100,13 @@
                         <div class="col-md-8 col-md-pull-4">
                             <c:if test="${IS_OFFICE}">
                                 <%-- office applies for a user --%>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">
-                                        <spring:message code="application.data.person"/>
-                                    </label>
-                                    <div class="col-md-9">
+                                <uv:form-group>
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="person-select">
+                                            <spring:message code="application.data.person"/>
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
                                         <select id="person-select" class="form-control"
                                                 onchange="window.location.href=this.options[this.selectedIndex].value">
                                             <c:forEach items="${persons}" var="p">
@@ -122,15 +124,18 @@
                                                 </option>
                                             </c:forEach>
                                         </select>
-                                    </div>
-                                </div>
+                                    </jsp:attribute>
+                                </uv:form-group>
                             </c:if>
 
-                            <div class="form-group is-required">
-                                <label class="control-label col-md-3" for="vacationType">
-                                    <spring:message code="application.data.vacationType"/>:
-                                </label>
-                                <div class="col-md-9">
+                            <uv:form-group required="true">
+                                <jsp:attribute name="label">
+                                    <uv:form-label htmlFor="vacationType">
+                                        <spring:message code="application.data.vacationType"/>:
+
+                                    </uv:form-label>
+                                </jsp:attribute>
+                                <jsp:attribute name="input">
                                     <form:select path="vacationType" size="1" id="vacationType" class="form-control"
                                                  onchange="vacationTypeChanged(value);">
                                         <c:forEach items="${vacationTypes}" var="vacationType">
@@ -148,60 +153,106 @@
                                             </c:choose>
                                         </c:forEach>
                                     </form:select>
-                                </div>
-                            </div>
+                                </jsp:attribute>
+                            </uv:form-group>
 
-                            <div class="form-group is-required">
-                                <label class="control-label col-md-3">
-                                    <spring:message code="absence.period"/>:
-                                </label>
-                                <div class="col-md-9 radio">
-                                    <label class="thirds">
-                                        <form:radiobutton id="fullDay" class="dayLength-full" path="dayLength" checked="checked"
-                                                          value="FULL"/>
-                                        <spring:message code="FULL"/>
-                                    </label>
-                                    <label class="thirds">
-                                        <form:radiobutton id="morning" class="dayLength-half" path="dayLength" value="MORNING"/>
-                                        <spring:message code="MORNING"/>
-                                    </label>
-                                    <label class="thirds">
-                                        <form:radiobutton id="noon" class="dayLength-half" path="dayLength" value="NOON"/>
-                                        <spring:message code="NOON"/>
-                                    </label>
-                                </div>
-                            </div>
+                            <uv:form-group required="true">
+                                <jsp:attribute name="label">
+                                    <uv:form-label htmlFor="">
+                                        <spring:message code="absence.period"/>:
+                                    </uv:form-label>
+                                </jsp:attribute>
+                                <jsp:attribute name="input">
+                                    <div class="tw-flex">
+                                        <label class="tw-font-normal tw-flex-1 tw-flex tw-items-center">
+                                            <form:radiobutton
+                                                id="fullDay"
+                                                class="dayLength-full tw-m-0 tw-mr-2"
+                                                path="dayLength"
+                                                checked="checked"
+                                                value="FULL"
+                                            />
+                                            <spring:message code="FULL"/>
+                                        </label>
+                                        <label class="tw-font-normal tw-flex-1 tw-flex tw-items-center">
+                                            <form:radiobutton
+                                                id="morning"
+                                                class="dayLength-half tw-m-0 tw-mr-2"
+                                                path="dayLength"
+                                                value="MORNING"
+                                            />
+                                            <spring:message code="MORNING"/>
+                                        </label>
+                                        <label class="tw-font-normal tw-flex-1 tw-flex tw-items-center">
+                                            <form:radiobutton
+                                                id="noon"
+                                                class="dayLength-half tw-m-0 tw-mr-2"
+                                                path="dayLength"
+                                                value="NOON"
+                                            />
+                                            <spring:message code="NOON"/>
+                                        </label>
+                                    </div>
+                                </jsp:attribute>
+                            </uv:form-group>
 
-                            <div class="form-group is-required">
-                                <label class="col-md-3 control-label" for="from">
-                                    <spring:message code="absence.period.startDate"/>:
-                                </label>
-                                <div class="col-md-5">
-                                    <form:input id="from" path="startDate" class="form-control"
-                                                cssErrorClass="form-control error" placeholder="${DATE_PATTERN}"
-                                                autocomplete="off" value="${param.from}"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <form:input id="startTime" path="startTime" class="form-control"
-                                                cssErrorClass="form-control error" placeholder="${TIME_PATTERN}"
-                                                autocomplete="off"/>
-                                </div>
-                            </div>
+                            <uv:form-group required="true">
+                                <jsp:attribute name="label">
+                                    <uv:form-label htmlFor="from">
+                                        <spring:message code="absence.period.startDate"/>:
+                                    </uv:form-label>
+                                </jsp:attribute>
+                                <jsp:attribute name="input">
+                                    <span class="sm:tw-flex">
+                                        <span class="tw-flex-1 tw-mr-4">
+                                            <uv:form-input
+                                                id="from"
+                                                path="startDate"
+                                                placeholder="${DATE_PATTERN}"
+                                                autocomplete="off"
+                                                value="${param.from}"
+                                            />
+                                        </span>
+                                        <span class="tw-w-2/5">
+                                            <uv:form-input
+                                                id="startTime"
+                                                path="startTime"
+                                                placeholder="${TIME_PATTERN}"
+                                                autocomplete="off"
+                                            />
+                                        </span>
+                                    </span>
+                                </jsp:attribute>
+                            </uv:form-group>
 
-                            <div class="form-group is-required">
-                                <label class="control-label col-md-3" for="to">
-                                    <spring:message code="absence.period.endDate"/>:
-                                </label>
-                                <div class="col-md-5">
-                                    <form:input id="to" path="endDate" class="form-control" cssErrorClass="form-control error"
-                                                placeholder="${DATE_PATTERN}" autocomplete="off" value="${param.to}"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <form:input id="endTime" path="endTime" class="form-control"
-                                                cssErrorClass="form-control error" placeholder="${TIME_PATTERN}"
-                                                autocomplete="off"/>
-                                </div>
-                            </div>
+                            <uv:form-group required="true">
+                                <jsp:attribute name="label">
+                                    <uv:form-label htmlFor="to">
+                                        <spring:message code="absence.period.endDate"/>:
+                                    </uv:form-label>
+                                </jsp:attribute>
+                                <jsp:attribute name="input">
+                                    <span class="sm:tw-flex">
+                                        <span class="tw-flex-1 tw-mr-4">
+                                            <uv:form-input
+                                                id="to"
+                                                path="endDate"
+                                                value="${param.to}"
+                                                placeholder="${DATE_PATTERN}"
+                                                autocomplete="off"
+                                            />
+                                        </span>
+                                        <span class="tw-w-2/5">
+                                            <uv:form-input
+                                                id="endTime"
+                                                path="endDate"
+                                                placeholder="${TIME_PATTERN}"
+                                                autocomplete="off"
+                                            />
+                                        </span>
+                                    </span>
+                                </jsp:attribute>
+                            </uv:form-group>
 
                             <div class="form-group">
                                 <div class="col-md-9 col-md-offset-3">
@@ -209,11 +260,13 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-3" for="holidayReplacement">
-                                    <spring:message code="application.data.holidayReplacement"/>:
-                                </label>
-                                <div class="col-md-9">
+                            <uv:form-group>
+                                <jsp:attribute name="label">
+                                    <uv:form-label htmlFor="holidayReplacement">
+                                        <spring:message code="application.data.holidayReplacement"/>:
+                                    </uv:form-label>
+                                </jsp:attribute>
+                                <jsp:attribute name="input">
                                     <form:select path="holidayReplacement" id="holidayReplacement" size="1"
                                                  class="form-control">
                                         <option value="-1"><spring:message
@@ -235,26 +288,42 @@
                                             </c:choose>
                                         </c:forEach>
                                     </form:select>
+                                </jsp:attribute>
+                                <jsp:attribute name="error">
                                     <form:errors path="holidayReplacement" cssClass="error"/>
-                                </div>
-                            </div>
+                                </jsp:attribute>
+                            </uv:form-group>
 
-                            <div class="form-group is-required">
-                                <label class="control-label col-md-3">
-                                    <spring:message code="application.data.teamInformed"/>:
-                                </label>
-                                <div class="col-md-9 radio">
-                                    <label class="halves">
-                                        <form:radiobutton id="teamInformed" path="teamInformed" value="true"/>
-                                        <spring:message code="application.data.teamInformed.true"/>
-                                    </label>
-                                    <label class="halves">
-                                        <form:radiobutton id="teamNotInformed" path="teamInformed" value="false"/>
-                                        <spring:message code="application.data.teamInformed.false"/>
-                                    </label>
-                                    <form:errors path="teamInformed" cssClass="error"/>
-                                </div>
-                            </div>
+                            <uv:form-group>
+                                <jsp:attribute name="label">
+                                    <uv:form-label htmlFor="">
+                                        <spring:message code="application.data.teamInformed"/>:
+                                    </uv:form-label>
+                                </jsp:attribute>
+                                <jsp:attribute name="input">
+                                    <div class="tw-flex">
+                                        <label class="tw-font-normal tw-flex-1 tw-flex tw-items-center">
+                                            <form:radiobutton
+                                                id="teamInformed"
+                                                path="teamInformed"
+                                                cssClass="tw-m-0 tw-mr-2"
+                                                value="true"
+                                            />
+                                            <spring:message code="application.data.teamInformed.true"/>
+                                        </label>
+                                        <label class="tw-font-normal tw-flex-1 tw-flex tw-items-center">
+                                            <form:radiobutton
+                                                id="teamNotInformed"
+                                                path="teamInformed"
+                                                cssClass="tw-m-0 tw-mr-2"
+                                                value="false"
+                                            />
+                                            <spring:message code="application.data.teamInformed.false"/>
+                                        </label>
+                                        <form:errors path="teamInformed" cssClass="error"/>
+                                    </div>
+                                </jsp:attribute>
+                            </uv:form-group>
                         </div>
 
                         <c:if test="${overtimeActive}">
@@ -266,17 +335,23 @@
                             </div>
 
                             <div class="col-md-8 col-md-pull-4">
-                                <c:set var="HOURS_IS_REQUIRED"
-                                       value="${application.vacationType.category == 'OVERTIME' ? 'is-required' : ''}"/>
-                                <div class="form-group ${HOURS_IS_REQUIRED}" id="form-group--hours">
-                                    <label class="control-label col-md-3" for="hours">
-                                        <spring:message code="application.data.hours"/>:
-                                    </label>
-                                    <div class="col-md-9">
-                                        <form:input path="hours" class="form-control" cssErrorClass="form-control error"/>
+                                <c:set
+                                    var="HOURS_IS_REQUIRED"
+                                    value="${application.vacationType.category == 'OVERTIME' ? 'is-required' : ''}"
+                                />
+                                <uv:form-group required="${HOURS_IS_REQUIRED}">
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="hours">
+                                            <spring:message code="application.data.hours"/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <uv:form-input id="hours" path="hours" />
+                                    </jsp:attribute>
+                                    <jsp:attribute name="error">
                                         <form:errors path="hours" cssClass="error"/>
-                                    </div>
-                                </div>
+                                    </jsp:attribute>
+                                </uv:form-group>
                             </div>
                         </c:if>
                     </div>
@@ -296,14 +371,17 @@
                             </span>
                         </div>
                         <div class="col-md-8 col-md-pull-4">
-                            <c:set var="REASON_IS_REQUIRED"
-                                   value="${application.vacationType.category == 'SPECIALLEAVE' ? 'is-required' : ''}"/>
-
-                            <div class="form-group ${REASON_IS_REQUIRED}" id="form-group--reason">
-                                <label class="control-label col-md-3" for="reason">
-                                    <spring:message code="application.data.reason"/>:
-                                </label>
-                                <div class="col-md-9">
+                            <c:set
+                                var="REASON_IS_REQUIRED"
+                                value="${application.vacationType.category == 'SPECIALLEAVE' ? 'is-required' : ''}"
+                            />
+                            <uv:form-group required="${REASON_IS_REQUIRED}">
+                                <jsp:attribute name="label">
+                                    <uv:form-label htmlFor="reason">
+                                        <spring:message code="application.data.reason"/>:
+                                    </uv:form-label>
+                                </jsp:attribute>
+                                <jsp:attribute name="input">
                                     <small>
                                         <span id="text-reason"></span><spring:message code="action.comment.maxChars"/>
                                     </small>
@@ -311,14 +389,19 @@
                                                    cssErrorClass="form-control error"
                                                    onkeyup="count(this.value, 'text-reason');"
                                                    onkeydown="maxChars(this,200); count(this.value, 'text-reason');"/>
+                                </jsp:attribute>
+                                <jsp:attribute name="error">
                                     <form:errors path="reason" cssClass="error"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3" for="address">
-                                    <spring:message code="application.data.furtherInformation.address"/>:
-                                </label>
-                                <div class="col-md-9">
+                                </jsp:attribute>
+                            </uv:form-group>
+
+                            <uv:form-group>
+                                <jsp:attribute name="label">
+                                    <uv:form-label htmlFor="address">
+                                        <spring:message code="application.data.furtherInformation.address"/>:
+                                    </uv:form-label>
+                                </jsp:attribute>
+                                <jsp:attribute name="input">
                                     <small>
                                         <span id="text-address"></span><spring:message code="action.comment.maxChars"/>
                                     </small>
@@ -326,14 +409,19 @@
                                                    cssErrorClass="form-control error"
                                                    onkeyup="count(this.value, 'text-address');"
                                                    onkeydown="maxChars(this,200); count(this.value, 'text-address');"/>
+                                </jsp:attribute>
+                                <jsp:attribute name="error">
                                     <form:errors path="address" cssClass="error"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3" for="comment">
-                                    <spring:message code="application.data.furtherInformation.comment"/>:
-                                </label>
-                                <div class="col-md-9">
+                                </jsp:attribute>
+                            </uv:form-group>
+
+                            <uv:form-group>
+                                <jsp:attribute name="label">
+                                    <uv:form-label htmlFor="comment">
+                                        <spring:message code="application.data.furtherInformation.comment"/>:
+                                    </uv:form-label>
+                                </jsp:attribute>
+                                <jsp:attribute name="input">
                                     <small>
                                         <span id="text-comment"></span><spring:message code="action.comment.maxChars"/>
                                     </small>
@@ -341,9 +429,11 @@
                                                    cssErrorClass="form-control error"
                                                    onkeyup="count(this.value, 'text-comment');"
                                                    onkeydown="maxChars(this,200); count(this.value, 'text-comment');"/>
+                                </jsp:attribute>
+                                <jsp:attribute name="error">
                                     <form:errors path="comment" cssClass="error"/>
-                                </div>
-                            </div>
+                                </jsp:attribute>
+                            </uv:form-group>
                         </div>
                     </div>
                 </div>

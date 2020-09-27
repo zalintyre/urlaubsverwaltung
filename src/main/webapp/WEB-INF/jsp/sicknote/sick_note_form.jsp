@@ -95,12 +95,13 @@
                     </div>
 
                     <div class="col-md-8 col-md-pull-4">
-                        <div class="form-group is-required">
-                            <label class="control-label col-md-3" for="employee">
-                                <spring:message code='sicknote.data.person'/>:
-                            </label>
-
-                            <div class="col-md-9">
+                        <uv:form-group required="true">
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="employee">
+                                    <spring:message code='sicknote.data.person'/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
                                 <c:choose>
                                     <c:when test="${sickNote.id == null}">
                                         <form:select path="person" id="employee" class="form-control"
@@ -126,15 +127,16 @@
                                         <c:out value="${sickNote.person.niceName}"/>
                                     </c:otherwise>
                                 </c:choose>
-                            </div>
-                        </div>
+                            </jsp:attribute>
+                        </uv:form-group>
 
-                        <div class="form-group is-required">
-                            <label class="control-label col-md-3" for="sickNoteType">
-                                <spring:message code="sicknote.data.type"/>:
-                            </label>
-
-                            <div class="col-md-9">
+                        <uv:form-group required="true">
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="sickNoteType">
+                                    <spring:message code="sicknote.data.type"/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
                                 <form:select path="sickNoteType" id="sickNoteType" class="form-control"
                                              cssErrorClass="form-control error">
                                     <c:forEach items="${sickNoteTypes}" var="sickNoteType">
@@ -152,14 +154,16 @@
                                         </c:choose>
                                     </c:forEach>
                                 </form:select>
-                            </div>
-                        </div>
+                            </jsp:attribute>
+                        </uv:form-group>
 
-                        <div class="form-group is-required">
-                            <label class="control-label col-md-3" for="dayLength">
-                                <spring:message code="absence.period"/>:
-                            </label>
-                            <div class="col-md-9">
+                        <uv:form-group required="true">
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="dayLength">
+                                    <spring:message code="absence.period"/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
                                 <div class="radio">
                                     <label class="thirds">
                                         <form:radiobutton path="dayLength" value="FULL" checked="checked"/>
@@ -174,33 +178,49 @@
                                         <spring:message code="NOON"/>
                                     </label>
                                 </div>
-                                <span class="help-inline"><form:errors path="dayLength" cssClass="error"/></span>
-                            </div>
-                        </div>
+                            </jsp:attribute>
+                            <jsp:attribute name="error">
+                                <form:errors path="dayLength" cssClass="error"/>
+                            </jsp:attribute>
+                        </uv:form-group>
 
-                        <div class="form-group is-required">
-                            <label class="control-label col-md-3" for="from">
-                                <spring:message code="absence.period.startDate"/>:
-                            </label>
-                            <div class="col-md-9">
-                                <form:input id="from" path="startDate" class="form-control"
-                                            cssErrorClass="form-control error" autocomplete="off"
-                                            placeholder="${DATE_PATTERN}"/>
-                                <span class="help-inline"><form:errors path="startDate" cssClass="error"/></span>
-                            </div>
-                        </div>
+                        <uv:form-group required="true">
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="from">
+                                    <spring:message code="absence.period.startDate"/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
+                                <uv:form-input
+                                    id="from"
+                                    path="startDate"
+                                    placeholder="${DATE_PATTERN}"
+                                    autocomplete="off"
+                                />
+                            </jsp:attribute>
+                            <jsp:attribute name="error">
+                                <form:errors path="startDate" cssClass="error"/>
+                            </jsp:attribute>
+                        </uv:form-group>
 
-                        <div class="form-group is-required">
-                            <label class="control-label col-md-3" for="to">
-                                <spring:message code="absence.period.endDate"/>:
-                            </label>
-                            <div class="col-md-9">
-                                <form:input id="to" path="endDate" class="form-control"
-                                            cssErrorClass="form-control error" autocomplete="off"
-                                            placeholder="${DATE_PATTERN}"/>
-                                <span class="help-inline"><form:errors path="endDate" cssClass="error"/></span>
-                            </div>
-                        </div>
+                        <uv:form-group required="true">
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="to">
+                                    <spring:message code="absence.period.endDate"/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
+                                <uv:form-input
+                                    id="to"
+                                    path="endDate"
+                                    placeholder="${DATE_PATTERN}"
+                                    autocomplete="off"
+                                />
+                            </jsp:attribute>
+                            <jsp:attribute name="error">
+                                <form:errors path="endDate" />
+                            </jsp:attribute>
+                        </uv:form-group>
                     </div>
                 </div>
             </div>
@@ -219,29 +239,45 @@
                         </span>
                     </div>
                     <div class="col-md-8 col-md-pull-4">
-                        <div class="form-group AU">
-                            <label class="control-label col-md-3" for="aubFrom">
-                                <spring:message code="absence.period.startDate"/>:
-                            </label>
-
-                            <div class="col-md-9">
-                                <form:input id="aubFrom" path="aubStartDate" class="form-control"
-                                            cssErrorClass="form-control error" autocomplete="off"
-                                            placeholder="${DATE_PATTERN}"/>
-                                <span class="help-inline"><form:errors path="aubStartDate" cssClass="error"/></span>
-                            </div>
+                        <div class="AU">
+                            <uv:form-group>
+                                <jsp:attribute name="label">
+                                    <uv:form-label htmlFor="aubForm">
+                                        <spring:message code="absence.period.startDate"/>:
+                                    </uv:form-label>
+                                </jsp:attribute>
+                                <jsp:attribute name="input">
+                                    <uv:form-input
+                                        id="aubForm"
+                                        path="aubStartDate"
+                                        placeholder="${DATE_PATTERN}"
+                                        autocomplete="off"
+                                    />
+                                </jsp:attribute>
+                                <jsp:attribute name="error">
+                                    <form:errors path="aubStartDate" cssClass="error"/>
+                                </jsp:attribute>
+                            </uv:form-group>
                         </div>
-                        <div class="form-group AU">
-                            <label class="control-label col-md-3" for="aubTo">
-                                <spring:message code="absence.period.endDate"/>
-                            </label>
-
-                            <div class="col-md-9">
-                                <form:input id="aubTo" path="aubEndDate" class="form-control"
-                                            cssErrorClass="form-control error" autocomplete="off"
-                                            placeholder="${DATE_PATTERN}"/>
-                                <span class="help-inline"><form:errors path="aubEndDate" cssClass="error"/></span>
-                            </div>
+                        <div class="AU">
+                            <uv:form-group>
+                                <jsp:attribute name="label">
+                                    <uv:form-label htmlFor="aubTo">
+                                        <spring:message code="absence.period.endDate"/>
+                                    </uv:form-label>
+                                </jsp:attribute>
+                                <jsp:attribute name="input">
+                                    <uv:form-input
+                                        id="subTo"
+                                        path="subEndDate"
+                                        placeholder="+${DATE_PATTERN}"
+                                        autocomplete="off"
+                                    />
+                                </jsp:attribute>
+                                <jsp:attribute name="error">
+                                    <form:errors path="aubEndDate" cssClass="error"/>
+                                </jsp:attribute>
+                            </uv:form-group>
                         </div>
                     </div>
                 </div>
@@ -261,11 +297,13 @@
                         </span>
                     </div>
                     <div class="col-md-8 col-md-pull-4">
-                        <div class="form-group">
-                            <label class="control-label col-md-3" for="comment">
-                                <spring:message code="sicknote.data.furtherInformation.comment"/>:
-                            </label>
-                            <div class="col-md-9">
+                        <uv:form-group>
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="comment">
+                                    <spring:message code="sicknote.data.furtherInformation.comment"/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
                                 <small>
                                     <span id="text-comment"></span><spring:message code="action.comment.maxChars"/>
                                 </small>
@@ -273,9 +311,11 @@
                                                cssErrorClass="form-control error"
                                                onkeyup="count(this.value, 'text-comment');"
                                                onkeydown="maxChars(this,200); count(this.value, 'text-comment');"/>
+                            </jsp:attribute>
+                            <jsp:attribute name="error">
                                 <form:errors path="comment" cssClass="error"/>
-                            </div>
-                        </div>
+                            </jsp:attribute>
+                        </uv:form-group>
                     </div>
                 </div>
             </div>

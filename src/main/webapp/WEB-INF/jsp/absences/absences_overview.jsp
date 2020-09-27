@@ -63,14 +63,16 @@
                 </jsp:body>
             </uv:section-heading>
 
-            <form method="GET" action="${URL_PREFIX}/absences" id="absenceOverviewForm" class="print:tw-hidden">
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <div class="row">
-                            <label class="control-label col-md-3" for="yearSelect">
-                                <spring:message code="absences.overview.year"/>:
-                            </label>
-                            <div class="col-md-6">
+            <form method="GET" action="${URL_PREFIX}/absences" id="absenceOverviewForm" class="form-horizontal print:tw-hidden">
+                <div class="row">
+                    <div class="col-md-5">
+                        <uv:form-group>
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="yearSelect">
+                                    <spring:message code="absences.overview.year"/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
                                 <select id="yearSelect" name="year" size="1" class="form-control">
                                     <c:forEach var="i" begin="1" end="9">
                                         <option
@@ -87,15 +89,19 @@
                                         <c:out value="${currentYear + 1}"/>
                                     </option>
                                 </select>
-                            </div>
-                        </div>
+                            </jsp:attribute>
+                        </uv:form-group>
                     </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <label class="control-label col-md-3" for="monthSelect">
-                                <spring:message code="absences.overview.month"/>:
-                            </label>
-                            <div class="col-md-6">
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <uv:form-group>
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="monthSelect">
+                                    <spring:message code="absences.overview.month"/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
                                 <select id="monthSelect" name="month" size="1" class="form-control">
                                     <option value="" ${selectedMonth == '' ? 'selected="selected"' : ''}>
                                         <spring:message code="month.all"/>
@@ -109,29 +115,33 @@
                                         </option>
                                     </c:forEach>
                                 </select>
-                            </div>
+                            </jsp:attribute>
+                        </uv:form-group>
+                    </div>
+                </div>
+                <c:if test="${not empty departments}">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <uv:form-group>
+                                    <jsp:attribute name="label">
+                                        <uv:form-label htmlFor="departmentSelect">
+                                            <spring:message code="absences.overview.department"/>:
+                                        </uv:form-label>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="input">
+                                        <select id="departmentSelect" name="department" size="1" class="form-control">
+                                            <c:forEach items="${departments}" var="department">
+                                                <option
+                                                    value="${department.name}" ${department.name == selectedDepartment ? 'selected="selected"' : ''}>
+                                                    <c:out value="${department.name}"/>
+                                                </option>
+                                            </c:forEach>
+                                        </select>
+                                    </jsp:attribute>
+                                </uv:form-group>
                         </div>
                     </div>
-                    <c:if test="${not empty departments}">
-                        <div class="form-group">
-                            <div class="row">
-                                <label class="control-label col-md-3" for="departmentSelect">
-                                    <spring:message code="absences.overview.department"/>:
-                                </label>
-                                <div class="col-md-6">
-                                    <select id="departmentSelect" name="department" size="1" class="form-control">
-                                        <c:forEach items="${departments}" var="department">
-                                            <option
-                                                value="${department.name}" ${department.name == selectedDepartment ? 'selected="selected"' : ''}>
-                                                <c:out value="${department.name}"/>
-                                            </option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </c:if>
-                </div>
+                </c:if>
             </form>
 
             <div class="row">

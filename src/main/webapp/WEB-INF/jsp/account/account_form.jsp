@@ -64,115 +64,138 @@
                     </div>
 
                     <div class="col-md-8 col-md-pull-4">
-                        <div class="form-group is-required">
-                            <label for="holidaysAccountValidFrom" class="control-label col-md-3 tw-leading-snug">
-                                <spring:message code="person.form.annualVacation.period.start"/>:
-                            </label>
+                        <uv:form-group>
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="holidaysAccountValidFrom">
+                                    <spring:message code="person.form.annualVacation.period.start"/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
+                                <uv:form-input
+                                    id="holidaysAccountValidFrom"
+                                    path="holidaysAccountValidFrom"
+                                    placeholder="${DATE_PATTERN}"
+                                />
+                            </jsp:attribute>
+                            <jsp:attribute name="error">
+                                <form:errors path="holidaysAccountValidFrom" cssClass="error"/>
+                            </jsp:attribute>
+                        </uv:form-group>
 
-                            <div class="col-md-9">
-                                <form:input id="holidaysAccountValidFrom" path="holidaysAccountValidFrom"
-                                            class="form-control"
-                                            cssErrorClass="form-control error" placeholder="${DATE_PATTERN}"/>
-                                <span class="help-inline">
-                                    <form:errors path="holidaysAccountValidFrom" cssClass="error"/>
-                                </span>
-                            </div>
-                        </div>
+                        <uv:form-group required="true">
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="holidaysAccountValidTo">
+                                    <spring:message code="person.form.annualVacation.period.end"/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
+                                <uv:form-input
+                                    id="holidaysAccountValidTo"
+                                    path="holidaysAccountValidTo"
+                                    placeholder="${DATE_PATTERN}"
+                                />
+                            </jsp:attribute>
+                            <jsp:attribute name="error">
+                                <form:errors path="holidaysAccountValidTo" cssClass="error"/>
+                            </jsp:attribute>
+                        </uv:form-group>
 
-                        <div class="form-group is-required">
-                            <label for="holidaysAccountValidTo" class="control-label col-md-3 tw-leading-snug">
-                                <spring:message code="person.form.annualVacation.period.end"/>:
-                            </label>
+                        <uv:form-group required="true">
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="annualVacationDays">
+                                    <spring:message code='person.form.annualVacation.annualVacation'/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
+                                <uv:form-input-number
+                                    id="annualVacationDays"
+                                    path="annualVacationDays"
+                                    value="${account.annualVacationDays}"
+                                    step="1"
+                                />
+                            </jsp:attribute>
+                            <jsp:attribute name="error">
+                                <form:errors path="annualVacationDays" cssClass="error"/>
+                            </jsp:attribute>
+                        </uv:form-group>
 
-                            <div class="col-md-9">
-                                <form:input id="holidaysAccountValidTo" path="holidaysAccountValidTo"
-                                            class="form-control"
-                                            cssErrorClass="form-control error" placeholder="${DATE_PATTERN}"/>
-                                <span class="help-inline">
-                                    <form:errors path="holidaysAccountValidTo" cssClass="error"/>
-                                </span>
-                            </div>
-                        </div>
+                        <uv:form-group required="true">
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="actualVacationDays">
+                                    <spring:message code='person.form.annualVacation.actualVacation'/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
+                                <uv:form-input-number
+                                    id="actualVacationDays"
+                                    path="actualVacationDays"
+                                    value="${account.actualVacationDays}"
+                                    step="0.5"
+                                />
+                            </jsp:attribute>
+                            <jsp:attribute name="error">
+                                <form:errors path="actualVacationDays" cssClass="error"/>
+                            </jsp:attribute>
+                        </uv:form-group>
 
-                        <div class="form-group is-required">
-                            <label class="control-label col-md-3 tw-leading-snug" for="annualVacationDays">
-                                <spring:message code='person.form.annualVacation.annualVacation'/>:
-                            </label>
+                        <uv:form-group required="true">
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="remainingVacationDays">
+                                    <spring:message code="person.form.annualVacation.remainingVacation"/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
+                                <uv:form-input-number
+                                    id="remainingVacationDays"
+                                    path="remainingVacationDays"
+                                    value="${account.remainingVacationDays}"
+                                    step="0.5"
+                                />
+                            </jsp:attribute>
+                            <jsp:attribute name="error">
+                                <form:errors path="remainingVacationDays" cssClass="error"/>
+                            </jsp:attribute>
+                        </uv:form-group>
 
-                            <div class="col-md-9">
-                                <form:input id="annualVacationDays"
-                                            path="annualVacationDays" class="form-control"
-                                            cssErrorClass="form-control error"
-                                            type="number" step="1"/>
-                                <span class="help-inline">
-                                    <form:errors path="annualVacationDays" cssClass="error"/>
-                                </span>
-                            </div>
-                        </div>
+                        <uv:form-group required="true">
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="">
+                                    <spring:message code="person.form.annualVacation.remainingVacation.notExpiring"/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
+                                <uv:form-input-number
+                                    id="remainingVacationDaysNotExpiring"
+                                    value="${account.remainingVacationDaysNotExpiring}"
+                                    path="remainingVacationDaysNotExpiring"
+                                    step="0.5"
+                                />
+                            </jsp:attribute>
+                            <jsp:attribute name="error">
+                                <form:errors path="remainingVacationDaysNotExpiring" cssClass="error"/>
+                            </jsp:attribute>
+                        </uv:form-group>
 
-                        <div class="form-group is-required">
-                            <label class="control-label col-md-3 tw-leading-snug" for="actualVacationDays">
-                                <spring:message code='person.form.annualVacation.actualVacation'/>:
-                            </label>
-
-                            <div class="col-md-9">
-                                <uv:input-number id="actualVacationDays"
-                                                 path="actualVacationDays" cssClass="form-control"
-                                                 cssErrorClass="form-control error" step="0.5"
-                                                 value="${account.actualVacationDays}"/>
-                                <span class="help-inline">
-                                    <form:errors path="actualVacationDays" cssClass="error"/>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group is-required">
-                            <label class="control-label col-md-3 tw-leading-snug" for="remainingVacationDays">
-                                <spring:message code="person.form.annualVacation.remainingVacation"/>:
-                            </label>
-
-                            <div class="col-md-9">
-                                <uv:input-number id="remainingVacationDays" path="remainingVacationDays" cssClass="form-control"
-                                                 cssErrorClass="form-control error" step="0.5"
-                                                 value="${account.remainingVacationDays}"/>
-                                <span class="help-inline">
-                                    <form:errors path="remainingVacationDays" cssClass="error"/>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group is-required">
-                            <label class="control-label col-md-3 tw-leading-snug">
-                                <spring:message code="person.form.annualVacation.remainingVacation.notExpiring"/>:
-                            </label>
-
-                            <div class="col-md-9">
-                                <uv:input-number id="remainingVacationDaysNotExpiring" path="remainingVacationDaysNotExpiring" cssClass="form-control"
-                                                 cssErrorClass="form-control error" step="0.5"
-                                                 value="${account.remainingVacationDaysNotExpiring}"/>
-                                <span class="help-inline">
-                                    <form:errors path="remainingVacationDaysNotExpiring" cssClass="error"/>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 tw-leading-snug" for="comment">
-                                <spring:message code='person.form.annualVacation.comment'/>:
-                            </label>
-                            <div class="col-md-9">
+                        <uv:form-group>
+                            <jsp:attribute name="label">
+                                <uv:form-label htmlFor="">
+                                    <spring:message code='person.form.annualVacation.comment'/>:
+                                </uv:form-label>
+                            </jsp:attribute>
+                            <jsp:attribute name="input">
                                 <small>
-                                    <span id="text-comment"></span><spring:message code='action.comment.maxChars'/>
+                                    <span id="text-comment"></span> <spring:message code='action.comment.maxChars'/>
                                 </small>
                                 <form:textarea id="comment" rows="3" path="comment" class="form-control"
                                                cssErrorClass="form-control error"
                                                onkeyup="count(this.value, 'text-comment');"
                                                onkeydown="maxChars(this,200); count(this.value, 'text-comment');"
                                                placeholder="${COMMENT_PLACEHOLDER}"/>
+                            </jsp:attribute>
+                            <jsp:attribute name="error">
                                 <form:errors path="comment" cssClass="error"/>
-                            </div>
-                        </div>
-
+                            </jsp:attribute>
+                        </uv:form-group>
                     </div>
                 </div>
             </div>
