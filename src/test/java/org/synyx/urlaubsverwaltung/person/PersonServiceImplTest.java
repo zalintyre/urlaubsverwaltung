@@ -57,6 +57,7 @@ class PersonServiceImplTest {
     @Mock
     private ApplicationEventPublisher applicationEventPublisher;
 
+    private final ArgumentCaptor<PersonCreatedEvent> personCreatedEventArgumentCaptor = ArgumentCaptor.forClass(PersonCreatedEvent.class);
     private final ArgumentCaptor<PersonDisabledEvent> personDisabledEventArgumentCaptor = ArgumentCaptor.forClass(PersonDisabledEvent.class);
 
     @BeforeEach
@@ -70,12 +71,18 @@ class PersonServiceImplTest {
     }
 
     @Test
-    void ensureDefaultAccountAndWorkingTimeCreation() {
-        when(personRepository.save(any(Person.class))).thenReturn(new Person());
+    void ensureDefaultAccountAndWorkingTimeCreationAndPersonCreatedEvent() {
+        Person savedPerson = new Person();
+        savedPerson.setId(1);
+        when(personRepository.save(any(Person.class))).thenReturn(savedPerson);
 
         sut.create("rick", "Grimes", "Rick", "rick@grimes.de", emptyList(), emptyList());
         verify(accountInteractionService).createDefaultAccount(any(Person.class));
         verify(workingTimeService).createDefaultWorkingTime(any(Person.class));
+
+        verify(applicationEventPublisher).publishEvent(personCreatedEventArgumentCaptor.capture());
+        final PersonCreatedEvent actualPersonCreatedEvent = personCreatedEventArgumentCaptor.getValue();
+        assertThat(actualPersonCreatedEvent.getPersonId()).isEqualTo(savedPerson.getId());
     }
 
     @Test
