@@ -60,7 +60,7 @@ class PersonServiceImpl implements PersonService {
         accountInteractionService.createDefaultAccount(person);
         workingTimeService.createDefaultWorkingTime(person);
 
-        applicationEventPublisher.publishEvent(new PersonCreatedEvent(this, persistedPerson.getId()));
+        applicationEventPublisher.publishEvent(new PersonCreatedEvent(persistedPerson.getId()));
 
         return persistedPerson;
     }
@@ -115,9 +115,9 @@ class PersonServiceImpl implements PersonService {
 
         final boolean isInactive = persistedPerson.getPermissions().contains(INACTIVE);
         if (isInactive) {
-            applicationEventPublisher.publishEvent(new PersonDisabledEvent(this, persistedPerson.getId()));
+            applicationEventPublisher.publishEvent(new PersonDisabledEvent(persistedPerson.getId()));
         } else {
-            applicationEventPublisher.publishEvent(new ActivePersonCountMaybeChangedEvent(this, persistedPerson.getId()));
+            applicationEventPublisher.publishEvent(new ActivePersonCountMaybeChangedEvent(persistedPerson.getId()));
         }
 
         return persistedPerson;

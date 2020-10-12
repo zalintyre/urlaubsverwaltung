@@ -1,13 +1,10 @@
 package org.synyx.urlaubsverwaltung.person;
 
-import org.springframework.context.ApplicationEvent;
-
-public class ActivePersonCountMaybeChangedEvent extends ApplicationEvent {
+public class ActivePersonCountMaybeChangedEvent {
 
     private final int personId;
 
-    public ActivePersonCountMaybeChangedEvent(Object source, int personId) {
-        super(source);
+    public ActivePersonCountMaybeChangedEvent(int personId) {
         this.personId = personId;
     }
 

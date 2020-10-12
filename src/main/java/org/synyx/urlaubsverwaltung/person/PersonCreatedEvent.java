@@ -1,13 +1,10 @@
 package org.synyx.urlaubsverwaltung.person;
 
-import org.springframework.context.ApplicationEvent;
-
-public class PersonCreatedEvent extends ApplicationEvent {
+public class PersonCreatedEvent {
 
     private final int personId;
 
-    public PersonCreatedEvent(Object source, int personId) {
-        super(source);
+    public PersonCreatedEvent(int personId) {
         this.personId = personId;
     }
 
